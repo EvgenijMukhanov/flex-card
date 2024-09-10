@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlexCardWidget } from "../../widgets";
 import { ConfigurationModel } from "../../store/types/configurationModel";
-import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
+import { loadMainConfiguration } from "../../store/helpers/configuration/loadMainConfiguration";
 
 type Props = {
   configurationBaseUrl: string;
@@ -18,7 +18,7 @@ export const FlexPage = ({
 
   useEffect(() => {
     const load = async () => {
-      const result = await loadConfiguration({
+      const result = await loadMainConfiguration({
         pathname: configurationPathName,
         baseUrl: configurationBaseUrl,
       });

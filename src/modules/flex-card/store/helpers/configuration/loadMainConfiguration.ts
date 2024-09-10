@@ -2,7 +2,7 @@ import { fetchConfiguration } from "../../api/fetchConfiguration";
 import { mapDtoToConfigurationModel } from "../../mappers/mapDtoToConfigurationModel";
 import { ConfigurationModel } from "../../types/configurationModel";
 
-export const loadConfiguration = async ({
+export const loadMainConfiguration = async ({
   baseUrl,
   pathname,
 }: {

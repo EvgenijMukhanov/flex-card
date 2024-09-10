@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { GetConfigurationType } from "../../../store/types/processes/get-configuration";
 import { fetchConfiguration } from "../../../store/api/fetchConfiguration";
+import { loadElementConfiguration } from "../../../store/helpers/configuration/loadElementConfiguration";
 
 type Props = {
   children: GetConfigurationType;
@@ -9,23 +10,18 @@ type Props = {
 
 export const GetConfigurationWidget = ({ children, currentKey }: Props) => {
   useEffect(() => {
-    const request = children.sources?.find((item) => {
-      return !!item;
-    });
-    console.log("request", request);
-
-    if (request) {
-      fetchConfiguration({
-        baseUrl: request.source.baseUrl,
-        pathname: request.source.path,
-      }).then((response) => {
-        console.log("response", response);
+    const load = async () => {
+      const request = children.sources?.find((item) => {
+        return !!item;
       });
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("GetConfigurationWidget", children);
+      if (request) {
+        const response = await loadElementConfiguration({
+          baseUrl: request.source.baseUrl,
+          pathname: request.source.path,
+        });
+      }
+    };
+    load();
   }, []);
 
   return <>GetConfigurationWidget</>;
