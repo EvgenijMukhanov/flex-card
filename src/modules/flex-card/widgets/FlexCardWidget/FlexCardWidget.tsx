@@ -1,22 +1,51 @@
-import { ElementWidget } from "..";
+import { useEffect, useState } from "react";
+import { ElementChildrens, ElementWidget } from "..";
 import { ConfigurationModel } from "../../store/types/configurationModel";
 import { ElementType } from "../../store/types/element";
+import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
 
 type Props = {
-  configuration: ConfigurationModel;
-  configurationPathName: string;
+  source: {
+    baseUrl: string;
+    pathname: string;
+  };
 };
 
-export const FlexCardWidget = ({
-  configuration,
-  configurationPathName,
-}: Props) => {
+export const FlexCardWidget = ({ source }: Props) => {
+  const [configuration, setConfiguration] = useState<
+    | {
+        model: ConfigurationModel | undefined;
+        element: ElementType | undefined;
+      }
+    | undefined
+  >(undefined);
+
+  useEffect(() => {
+    const load = async () => {
+      const result = await loadConfiguration({
+        pathname: source.pathname,
+        baseUrl: source.baseUrl,
+      });
+      setConfiguration(result);
+    };
+    load();
+  }, [source]);
+
   return (
     <>
-      {configuration.childrens.map((children: ElementType, idx: number) => {
-        const key = `${configurationPathName}-${idx}`;
-        return <ElementWidget children={children} currentKey={key} key={key} />;
-      })}
+      {configuration?.model && (
+        <ElementChildrens
+          childrens={configuration.model.childrens}
+          currentKey={source.pathname}
+        />
+      )}
+      {configuration?.element && (
+        <ElementWidget
+          children={configuration.element}
+          currentKey={source.pathname}
+          key={source.pathname}
+        />
+      )}
     </>
   );
 };

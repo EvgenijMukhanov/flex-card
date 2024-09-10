@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { GetConfigurationType } from "../../../store/types/processes/get-configuration";
-import { fetchConfiguration } from "../../../store/api/fetchConfiguration";
-import { loadElementConfiguration } from "../../../store/helpers/configuration/loadElementConfiguration";
+import { FlexCardWidget } from "../../FlexCardWidget/FlexCardWidget";
 
 type Props = {
   children: GetConfigurationType;
@@ -9,20 +7,19 @@ type Props = {
 };
 
 export const GetConfigurationWidget = ({ children, currentKey }: Props) => {
-  useEffect(() => {
-    const load = async () => {
-      const request = children.sources?.find((item) => {
-        return !!item;
-      });
-      if (request) {
-        const response = await loadElementConfiguration({
-          baseUrl: request.source.baseUrl,
-          pathname: request.source.path,
-        });
-      }
-    };
-    load();
-  }, []);
-
-  return <>GetConfigurationWidget</>;
+  const request = children.sources?.find((item) => {
+    return !!item;
+  });
+  return (
+    <>
+      {request && request.source.variant === "http" && (
+        <FlexCardWidget
+          source={{
+            baseUrl: request.source.baseUrl,
+            pathname: request.source.path,
+          }}
+        />
+      )}
+    </>
+  );
 };

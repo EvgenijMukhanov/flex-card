@@ -39,85 +39,14 @@
                     {
                       "type": "configuration",
                       "target": "current",
-                      "variant": "http",
                       "source": {
+                        "variant": "http",
                         "method": "GET",
                         "baseUrl": "",
                         "path": "pages/main-menu"
                       }
                     }
                   ]
-                },
-                {
-                  "element": "menu",
-                  "version": 1,
-                  "props": {
-                    "mode": "inline",
-                    "items": [
-                      {
-                        "key": "1",
-                        "label": "menu 1"
-                      },
-                      {
-                        "type": "divider"
-                      },
-                      {
-                        "key": "2",
-                        "label": "menu 2",
-                        "children": [
-                          {
-                            "key": "2-1",
-                            "label": "menu 2-1"
-                          },
-                          {
-                            "key": "2-2",
-                            "label": "menu 2-2"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "group",
-                        "label": "First group elements",
-                        "children": [
-                          {
-                            "key": "4",
-                            "label": "menu 4"
-                          },
-                          {
-                            "key": "5",
-                            "label": "menu 5"
-                          },
-                          {
-                            "key": "6",
-                            "label": "menu 6"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "group",
-                        "label": "Second group elements",
-                        "children": [
-                          {
-                            "key": "7",
-                            "label": "menu 7"
-                          },
-                          {
-                            "key": "8",
-                            "label": "menu 8",
-                            "disabled": true
-                          },
-                          {
-                            "type": "divider"
-                          },
-                          {
-                            "key": "9",
-                            "label": "menu 9",
-                            "danger": true
-                          }
-                        ]
-                      }
-                    ]
-                  }
                 }
               ]
             },

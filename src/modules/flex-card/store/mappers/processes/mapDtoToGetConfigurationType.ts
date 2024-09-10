@@ -28,14 +28,13 @@ const getSources = (data: any): ConfigurationSourceType[] | undefined => {
       if (
         item.type === "configuration" &&
         item.target === "current" &&
-        item.variant === "http"
+        ["http", "import"].includes(item?.source?.variant)
       ) {
         const source = mapDtoToRequestSourceType(item.source);
         if (source) {
           result.push({
             type: "configuration",
             target: "current",
-            variant: "http",
             source,
           });
         }

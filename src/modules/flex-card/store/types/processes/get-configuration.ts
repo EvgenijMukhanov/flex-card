@@ -9,6 +9,5 @@ export type GetConfigurationType = {
 export type ConfigurationSourceType = {
   type: "configuration";
   target: "current";
-  variant: "http";
   source: RequestSourceType;
 };
