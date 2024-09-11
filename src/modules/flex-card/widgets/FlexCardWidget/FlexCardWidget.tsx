@@ -13,7 +13,7 @@ type Props = {
 
 export const FlexCardWidget = ({ source }: Props) => {
   const [configuration, setConfiguration] = useState<
-    {
+    | {
         model: ConfigurationModel | undefined;
         element: ElementType | undefined;
       }
