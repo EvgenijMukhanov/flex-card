@@ -1,7 +1,11 @@
-export type Params = {
-  param: string;
-  value: string;
-  type: ParamsType;
+import { RequestSourceType } from "../common/sources/requestSource";
+
+export type ParamsType = {
+  path: ParamsPathType[];
+  source: RequestSourceType;
 };
 
-export type ParamsType = "route";
+export type ParamsPathType = {
+  attribute: string;
+  value: string;
+};

@@ -1,25 +1,15 @@
-import { useState } from "react";
 import { FlexCardWidget } from "../../widgets";
-import { Params } from "../../store/types/ext/params";
+import { ParamsType } from "../../store/types/ext/params";
+import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 
 type Props = {
-  configurationBaseUrl: string;
-  configurationPathName: string;
+  source: RequestSourceType;
 };
 
-export const FlexPage = ({
-  configurationBaseUrl,
-  configurationPathName,
-}: Props) => {
-  const [params, setParams] = useState<Params[]>([]);
+export const FlexPage = ({ source }: Props) => {
   return (
     <>
-      <FlexCardWidget
-        source={{
-          baseUrl: configurationBaseUrl,
-          pathname: configurationPathName,
-        }}
-      />
+      <FlexCardWidget source={source} />
     </>
   );
 };

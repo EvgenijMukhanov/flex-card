@@ -17,7 +17,7 @@ export const mapDtoToRequestSourceType = (
             variant: data.variant,
             method: data.method,
             baseUrl: data.baseUrl,
-            path: data.path,
+            pathname: data.path,
           };
           if (["POST", "PUT", "PATCH"].includes(data.method)) {
             if (

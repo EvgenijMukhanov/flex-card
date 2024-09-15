@@ -3,12 +3,10 @@ import { ElementChildrens, ElementWidget } from "..";
 import { ConfigurationModel } from "../../store/types/configurationModel";
 import { ElementType } from "../../store/types/element";
 import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
+import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 
 type Props = {
-  source: {
-    baseUrl: string;
-    pathname: string;
-  };
+  source: RequestSourceType;
 };
 
 export const FlexCardWidget = ({ source }: Props) => {
@@ -22,10 +20,7 @@ export const FlexCardWidget = ({ source }: Props) => {
 
   useEffect(() => {
     const load = async () => {
-      const result = await loadConfiguration({
-        pathname: source.pathname,
-        baseUrl: source.baseUrl,
-      });
+      const result = await loadConfiguration(source);
       setConfiguration(result);
     };
     load();
@@ -33,13 +28,13 @@ export const FlexCardWidget = ({ source }: Props) => {
 
   return (
     <>
-      {configuration?.model && (
+      {configuration?.model && source.variant === "http" && (
         <ElementChildrens
           childrens={configuration.model.childrens}
           currentKey={source.pathname}
         />
       )}
-      {configuration?.element && (
+      {configuration?.element && source.variant === "http" && (
         <ElementWidget
           children={configuration.element}
           currentKey={source.pathname}

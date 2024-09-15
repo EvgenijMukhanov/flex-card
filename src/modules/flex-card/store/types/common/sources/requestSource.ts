@@ -1,13 +1,13 @@
 import { AnyObject } from "../../../../../../shared/types/common/AnyObject";
 import { HttpMethodTypes } from "../http/httpMethods";
 
-export type RequestSourceType = RequestSourcHttpType | RequestSourcImportType;
+export type RequestSourceType = RequestSourceHttpType | RequestSourcImportType;
 
-export type RequestSourcHttpType = {
+export type RequestSourceHttpType = {
   variant: "http";
   method: HttpMethodTypes;
   baseUrl: string;
-  path: string;
+  pathname: string;
   body?: AnyObject;
 };
 

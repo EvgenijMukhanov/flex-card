@@ -13,12 +13,7 @@ export const GetConfigurationWidget = ({ children, currentKey }: Props) => {
   return (
     <>
       {request && request.source.variant === "http" && (
-        <FlexCardWidget
-          source={{
-            baseUrl: request.source.baseUrl,
-            pathname: request.source.path,
-          }}
-        />
+        <FlexCardWidget source={request.source} />
       )}
     </>
   );
