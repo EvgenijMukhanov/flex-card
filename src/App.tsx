@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ConfigProvider } from "./shared/config";
 import { FlexPage } from "./modules/flex-card/pages";
 import { ParamsType } from "./modules/flex-card/store/types/ext/params";
+import { LoadProcess } from "./processes";
 
 const startConfigurationPathname = "pages/main";
 
@@ -18,18 +19,19 @@ function App() {
       },
       path: [
         {
-          attribute: "",
+          attribute: "*",
           value: "/",
         },
       ],
     },
   ]);
 
-  const getRoute = (params: ParamsType[]) => {
+  const getRoutes = (params: ParamsType[]) => {
     return params.map((item: ParamsType, idx: number) => {
       return (
         <Route
           key={idx}
+          index
           path={item.path[0].attribute}
           element={<FlexPage source={item.source} />}
         ></Route>
@@ -39,24 +41,26 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ConfigProvider
-        locale={ru}
-        theme={{
-          components: {
-            Layout: {
-              headerBg: "#808080",
-              headerColor: "white",
-              siderBg: "#DDDDDD",
-              triggerHeight: 70,
-              triggerBg: "#999999",
-              footerBg: "#808080",
-              triggerColor: "red",
+      <LoadProcess>
+        <ConfigProvider
+          locale={ru}
+          theme={{
+            components: {
+              Layout: {
+                headerBg: "#808080",
+                headerColor: "white",
+                siderBg: "#DDDDDD",
+                triggerHeight: 70,
+                triggerBg: "#999999",
+                footerBg: "#808080",
+                triggerColor: "red",
+              },
             },
-          },
-        }}
-      >
-        <Routes>{getRoute(params)}</Routes>
-      </ConfigProvider>
+          }}
+        >
+          <Routes>{getRoutes(params)}</Routes>
+        </ConfigProvider>
+      </LoadProcess>
     </BrowserRouter>
   );
 }

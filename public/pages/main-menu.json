@@ -1,6 +1,14 @@
 {
   "element": "menu",
   "version": 1,
+  "methods": {
+    "onSelect": [
+      {
+        "variant": "navigate",
+        "target": "key"
+      }
+    ]
+  },
   "props": {
     "mode": "inline",
     "items": [

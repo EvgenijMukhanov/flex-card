@@ -2,6 +2,7 @@ class Context {
   private static instance: Context;
 
   baseUrl: string | undefined;
+  navigate: ((path: string) => void | undefined) | undefined;
 
   static getInstance() {
     if (!Context.instance) {
@@ -10,8 +11,15 @@ class Context {
     return Context.instance;
   }
 
-  init({ baseUrl }: { baseUrl: string }) {
+  init({
+    baseUrl,
+    navigate,
+  }: {
+    baseUrl: string;
+    navigate: (path: string) => void;
+  }) {
     this.baseUrl = baseUrl;
+    this.navigate = navigate;
   }
 }
 

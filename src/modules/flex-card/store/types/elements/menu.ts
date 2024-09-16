@@ -1,11 +1,12 @@
 import { AnyObject } from "../../../../../shared/types/common/AnyObject";
-import { RequestSourceType } from "../common/sources/requestSource";
+import { MethodsType } from "../common/methods/methods";
 
 export type MenuType = {
   element: "menu";
   version: number;
   props?: MenuPropsType;
   styles?: AnyObject;
+  methods?: MethodsType;
 };
 
 export type MenuPropsType = {

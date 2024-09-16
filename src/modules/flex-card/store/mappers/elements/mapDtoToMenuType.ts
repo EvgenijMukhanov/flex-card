@@ -1,3 +1,4 @@
+import { hasElementMethods } from "../../helpers/elements/hasElementMethods";
 import { hasElementProps } from "../../helpers/elements/hasElementProps";
 import { hasElementStyles } from "../../helpers/elements/hasElementStyles";
 import { ElementType } from "../../types/element";
@@ -7,6 +8,7 @@ import {
   MenuType,
 } from "../../types/elements/menu";
 import { mapDtoToStylesType } from "../common/mapDtoToStylesType";
+import { mapDtoToMethodsType } from "../common/methods/methods";
 
 export const mapDtoToMenuType = (children: any): ElementType | undefined => {
   if (
@@ -32,6 +34,13 @@ export const mapDtoToMenuType = (children: any): ElementType | undefined => {
       const props = getProps(children.props);
       if (Object.keys(props).length > 0) {
         element.props = props;
+      }
+    }
+
+    if (hasElementMethods(children)) {
+      const methods = mapDtoToMethodsType(children.methods, ["onSelect"]);
+      if (methods) {
+        element.methods = methods;
       }
     }
 

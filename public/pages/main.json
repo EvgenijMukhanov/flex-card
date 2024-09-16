@@ -43,7 +43,7 @@
                         "variant": "http",
                         "method": "GET",
                         "baseUrl": "",
-                        "path": "pages/main-menu"
+                        "pathname": "pages/main-menu"
                       }
                     }
                   ]
