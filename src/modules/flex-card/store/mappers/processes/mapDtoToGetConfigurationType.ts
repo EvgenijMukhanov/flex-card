@@ -1,5 +1,5 @@
 import {
-  ConfigurationSourceType,
+  ConfigurationDataType,
   GetConfigurationType,
 } from "../../types/processes/get-configuration";
 import { mapDtoToRequestSourceType } from "../common/sources/mapDtoToRequestSourceType";
@@ -15,31 +15,29 @@ export const mapDtoToGetConfigurationType = (
     return {
       element: "get.configuration",
       version: children.version,
-      sources: getSources(children.sources),
+      data: getData(children.data),
     };
   }
   return undefined;
 };
 
-const getSources = (data: any): ConfigurationSourceType[] | undefined => {
-  if (data && Array.isArray(data)) {
-    const result: ConfigurationSourceType[] = [];
-    data.forEach((item) => {
-      if (
-        item.type === "configuration" &&
-        item.target === "current" &&
-        ["http", "import"].includes(item?.source?.variant)
-      ) {
-        const source = mapDtoToRequestSourceType(item.source);
-        if (source) {
-          result.push({
-            type: "configuration",
-            target: "current",
-            source,
-          });
-        }
+const getData = (data: any): ConfigurationDataType | undefined => {
+  if (typeof data === "object") {
+    let result: ConfigurationDataType | undefined = undefined;
+    if (
+      data.type === "configuration" &&
+      data.relation === "isolate" &&
+      ["http", "import"].includes(data?.source?.variant)
+    ) {
+      const source = mapDtoToRequestSourceType(data.source);
+      if (source) {
+        result = {
+          type: "configuration",
+          relation: data.relation,
+          source,
+        };
       }
-    });
+    }
     return result;
   }
   return undefined;

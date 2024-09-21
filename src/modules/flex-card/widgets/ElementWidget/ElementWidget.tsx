@@ -19,6 +19,9 @@ type Props = {
 export const ElementWidget = ({ children, currentKey }: Props) => {
   return (
     <>
+      {children.element === "get.configuration" && (
+        <GetConfigurationWidget children={children} currentKey={currentKey} />
+      )}
       {children.element === "layout" && (
         <LayoutWidget children={children} currentKey={currentKey} />
       )}
@@ -42,9 +45,6 @@ export const ElementWidget = ({ children, currentKey }: Props) => {
       )}
       {children.element === "menu" && (
         <MenuWidget children={children} currentKey={currentKey} />
-      )}
-      {children.element === "get.configuration" && (
-        <GetConfigurationWidget children={children} currentKey={currentKey} />
       )}
     </>
   );

@@ -7,14 +7,18 @@ type Props = {
 };
 
 export const GetConfigurationWidget = ({ children, currentKey }: Props) => {
-  const request = children.sources?.find((item) => {
-    return !!item;
-  });
+  console.log("GetConfigurationWidget", children);
+
+  const request = children.data;
+  console.log("request", request);
+
   return (
     <>
-      {request && request.source.variant === "http" && (
-        <FlexCardWidget source={request.source} />
-      )}
+      {request &&
+        request.source.variant === "http" &&
+        request.relation === "isolate" && (
+          <FlexCardWidget source={request.source} />
+        )}
     </>
   );
 };

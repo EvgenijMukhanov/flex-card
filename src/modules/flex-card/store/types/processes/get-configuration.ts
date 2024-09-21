@@ -3,11 +3,13 @@ import { RequestSourceType } from "../common/sources/requestSource";
 export type GetConfigurationType = {
   element: "get.configuration";
   version: number;
-  sources?: ConfigurationSourceType[];
+  data?: ConfigurationDataType;
 };
 
-export type ConfigurationSourceType = {
+export type ConfigurationDataType = {
   type: "configuration";
-  target: "current";
+  relation: ConfigurationDataRelationType;
   source: RequestSourceType;
 };
+
+export type ConfigurationDataRelationType = "join" | "isolate";

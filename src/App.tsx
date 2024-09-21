@@ -9,22 +9,7 @@ import { LoadProcess } from "./processes";
 const startConfigurationPathname = "pages/main";
 
 function App() {
-  const [params, setParams] = useState<ParamsType[]>([
-    {
-      source: {
-        variant: "http",
-        method: "GET",
-        baseUrl: "",
-        pathname: startConfigurationPathname,
-      },
-      path: [
-        {
-          attribute: "*",
-          value: "/",
-        },
-      ],
-    },
-  ]);
+  const [params, setParams] = useState<ParamsType[]>([]);
 
   const getRoutes = (params: ParamsType[]) => {
     return params.map((item: ParamsType, idx: number) => {
@@ -58,7 +43,24 @@ function App() {
             },
           }}
         >
-          <Routes>{getRoutes(params)}</Routes>
+          <Routes>
+            <Route
+              path="/*"
+              element={
+                <FlexPage
+                  source={{
+                    variant: "http",
+                    method: "GET",
+                    execute: "await",
+                    baseUrl: "",
+                    pathname: startConfigurationPathname,
+                  }}
+                />
+              }
+            >
+              {getRoutes(params)}
+            </Route>
+          </Routes>
         </ConfigProvider>
       </LoadProcess>
     </BrowserRouter>

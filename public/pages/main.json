@@ -35,18 +35,17 @@
                 {
                   "element": "get.configuration",
                   "version": 1,
-                  "sources": [
-                    {
-                      "type": "configuration",
-                      "target": "current",
-                      "source": {
-                        "variant": "http",
-                        "method": "GET",
-                        "baseUrl": "",
-                        "pathname": "pages/main-menu"
-                      }
+                  "data": {
+                    "type": "configuration",
+                    "relation": "isolate",
+                    "source": {
+                      "variant": "http",
+                      "method": "GET",
+                      "execute": "await",
+                      "baseUrl": "",
+                      "pathname": "pages/main-menu"
                     }
-                  ]
+                  }
                 }
               ]
             },

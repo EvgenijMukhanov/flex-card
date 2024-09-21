@@ -9,13 +9,15 @@ export const mapDtoToRequestSourceType = (
       ["GET", "POST", "PUT", "PATCH", "DELETE"].includes(data.method) &&
       typeof data.baseUrl === "string" &&
       typeof data.pathname === "string" &&
-      ["http", "import"].includes(data.variant)
+      ["http", "import"].includes(data.variant) &&
+      ["await", "async"].includes(data.execute)
     ) {
       switch (data.variant) {
         case "http":
           const result: RequestSourceType = {
             variant: data.variant,
             method: data.method,
+            execute: data.execute,
             baseUrl: data.baseUrl,
             pathname: data.pathname,
           };

@@ -7,14 +7,17 @@ type Props = {
   currentKey: string;
 };
 
-const onSelect = (e: any) => {
-  // console.log("onSelect", e);
-};
-
 export const MenuWidget = ({ children, currentKey }: Props) => {
   const styles = children.styles || {};
   const props = children.props || {};
   const methods = children.methods ? createMethods(children.methods) : {};
 
-  return <Menu {...props} style={styles} onSelect={onSelect} {...methods} />;
+  return (
+    <Menu
+      {...props}
+      style={styles}
+      {...methods}
+      defaultSelectedKeys={["2-2"]}
+    />
+  );
 };
