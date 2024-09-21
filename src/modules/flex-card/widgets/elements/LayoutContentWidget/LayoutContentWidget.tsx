@@ -1,13 +1,19 @@
 import { ElementChildrens } from "../..";
 import { Layout } from "../../../../../shared/grids";
+import { ElementParentType } from "../../../store/types/common/elements/parent";
 import { LayoutContentType } from "../../../store/types/elements/layout-content";
 
 type Props = {
   children: LayoutContentType;
   currentKey: string;
+  parent: ElementParentType;
 };
 
-export const LayoutContentWidget = ({ children, currentKey }: Props) => {
+export const LayoutContentWidget = ({
+  children,
+  currentKey,
+  parent,
+}: Props) => {
   const styles = children.styles || {};
   return (
     <Layout.Content style={styles}>
@@ -15,6 +21,7 @@ export const LayoutContentWidget = ({ children, currentKey }: Props) => {
         <ElementChildrens
           childrens={children.childrens}
           currentKey={currentKey}
+          parent={parent}
         />
       )}
     </Layout.Content>

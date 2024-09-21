@@ -8,7 +8,7 @@ import {
   MenuType,
 } from "../../types/elements/menu";
 import { mapDtoToStylesType } from "../common/mapDtoToStylesType";
-import { mapDtoToMethodsType } from "../common/methods/methods";
+import { mapDtoToMethodsType } from "../common/methods/mapDtoToMethodsType";
 
 export const mapDtoToMenuType = (children: any): ElementType | undefined => {
   if (

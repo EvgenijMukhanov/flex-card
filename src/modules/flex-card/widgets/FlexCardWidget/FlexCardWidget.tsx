@@ -4,12 +4,14 @@ import { ConfigurationModel } from "../../store/types/configurationModel";
 import { ElementType } from "../../store/types/element";
 import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
 import { RequestSourceType } from "../../store/types/common/sources/requestSource";
+import { ElementParentType } from "../../store/types/common/elements/parent";
 
 type Props = {
   source: RequestSourceType;
+  parent: ElementParentType;
 };
 
-export const FlexCardWidget = ({ source }: Props) => {
+export const FlexCardWidget = ({ source, parent }: Props) => {
   const [configuration, setConfiguration] = useState<
     | {
         model: ConfigurationModel | undefined;
@@ -25,6 +27,7 @@ export const FlexCardWidget = ({ source }: Props) => {
     };
     load();
   }, [source]);
+  // console.log("configuration", configuration?.model);
 
   return (
     <>
@@ -32,6 +35,7 @@ export const FlexCardWidget = ({ source }: Props) => {
         <ElementChildrens
           childrens={configuration.model.childrens}
           currentKey={source.pathname}
+          parent={parent}
         />
       )}
       {configuration?.element && source.variant === "http" && (
@@ -39,6 +43,7 @@ export const FlexCardWidget = ({ source }: Props) => {
           children={configuration.element}
           currentKey={source.pathname}
           key={source.pathname}
+          parent={parent}
         />
       )}
     </>

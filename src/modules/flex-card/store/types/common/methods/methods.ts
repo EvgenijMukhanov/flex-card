@@ -1,8 +1,8 @@
-import { DirectActionMethodType } from "./directActionMethod";
+import { MethodHandlersType } from "./handlers/methodHandlers";
 
 export type MethodsType = {
-  // [key in keyof AvailableMethodsType]?: DirectActionMethodType[];
-  onSelect?: DirectActionMethodType[];
+  // [key in keyof AvailableHandlersType]?: DirectActionMethodType[];
+  handlers?: MethodHandlersType;
 };
 
-export type AvailableMethodsType = "onClick" | "onChange" | "onSelect";
+export type AvailableHandlersType = "onClick" | "onChange" | "onSelect";

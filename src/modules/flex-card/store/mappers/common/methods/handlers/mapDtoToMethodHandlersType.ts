@@ -1,15 +1,13 @@
-import { DirectActionMethodType } from "../../../types/common/methods/directActionMethod";
-import {
-  AvailableMethodsType,
-  MethodsType,
-} from "../../../types/common/methods/methods";
+import { DirectActionMethodType } from "../../../../types/common/methods/directActionMethod";
+import { MethodHandlersType } from "../../../../types/common/methods/handlers/methodHandlers";
+import { AvailableHandlersType } from "../../../../types/common/methods/methods";
 
-export const mapDtoToMethodsType = (
+export const mapDtoToMethodHandlersType = (
   data: any,
-  availableMethods: AvailableMethodsType[],
-): MethodsType | undefined => {
+  availableMethods: AvailableHandlersType[],
+): MethodHandlersType | undefined => {
   if (typeof data === "object" && Object.keys(data).length > 0) {
-    const methods: MethodsType = {};
+    const handlers: MethodHandlersType = {};
     Object.keys(data).forEach((method) => {
       switch (method) {
         case "onSelect":
@@ -17,18 +15,18 @@ export const mapDtoToMethodsType = (
             Array.isArray(data[method]) &&
             availableMethods.includes(method)
           ) {
-            const handlers: DirectActionMethodType[] = [];
+            const _handlers: DirectActionMethodType[] = [];
             data[method].forEach((handler: any) => {
               if (handler.variant === "navigate") {
                 if (handler.target === "key") {
-                  handlers.push({
+                  _handlers.push({
                     variant: "navigate",
                     target: "key",
                   });
                 }
               }
             });
-            methods[method] = handlers;
+            handlers[method] = _handlers;
           }
 
           break;
@@ -38,8 +36,8 @@ export const mapDtoToMethodsType = (
       }
     });
 
-    if (Object.keys(methods).length > 0) {
-      return methods;
+    if (Object.keys(handlers).length > 0) {
+      return handlers;
     }
   }
   return undefined;
