@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { ElementParentType } from "../../../store/types/common/elements/parent";
 import { GetConfigurationType } from "../../../store/types/processes/get-configuration";
 import { FlexCardWidget } from "../../FlexCardWidget/FlexCardWidget";
+import { loadConfiguration } from "../../../store/helpers/configuration/loadConfiguration";
 
 type Props = {
   children: GetConfigurationType;
@@ -13,12 +15,27 @@ export const GetConfigurationWidget = ({
   currentKey,
   parent,
 }: Props) => {
-  // console.log("GetConfigurationWidget", children);
+  useEffect(() => {
+    const request = children.data;
+    if (
+      request &&
+      request.source.variant === "http" &&
+      request.relation === "join"
+    ) {
+      const load = async () => {
+        const result = await loadConfiguration(request.source);
+        if (parent.callbacks?.joinConfiguration) {
+          parent.callbacks.joinConfiguration({
+            configuration: result,
+            breadcrumbs: parent.breadcrumbs,
+          });
+        }
+      };
+      load();
+    }
+  }, [children]);
 
   const request = children.data;
-  // console.log("request", request);
-  // console.log("parent", parent);
-  // console.log("currentKey", currentKey);
 
   return (
     <>

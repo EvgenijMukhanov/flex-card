@@ -37,7 +37,7 @@
                   "version": 1,
                   "data": {
                     "type": "configuration",
-                    "relation": "isolate",
+                    "relation": "join",
                     "source": {
                       "variant": "http",
                       "method": "GET",

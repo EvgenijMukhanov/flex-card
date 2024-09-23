@@ -5,6 +5,7 @@ import { ElementType } from "../../store/types/element";
 import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
 import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 import { ElementParentType } from "../../store/types/common/elements/parent";
+import { joinConfigurationCallback } from "../../store/helpers/elements/callbacks/joinConfigurationCallback";
 
 type Props = {
   source: RequestSourceType;
@@ -29,13 +30,37 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
   }, [source]);
   // console.log("configuration", configuration?.model);
 
+  const joinConfiguration = (data: {
+    configuration: {
+      model: ConfigurationModel | undefined;
+      element: ElementType | undefined;
+    };
+    breadcrumbs: number[];
+  }) => {
+    if (configuration && data.configuration && data.breadcrumbs) {
+      const config = joinConfigurationCallback({
+        rootConfiguration: configuration,
+        configuration: data.configuration,
+        breadcrumbs: data.breadcrumbs,
+      });
+      if (config) {
+        setConfiguration(config);
+      }
+    }
+  };
+
+  const _parent: ElementParentType = {
+    ...parent,
+    callbacks: { element: "root", joinConfiguration },
+  };
+
   return (
     <>
       {configuration?.model && source.variant === "http" && (
         <ElementChildrens
           childrens={configuration.model.childrens}
           currentKey={source.pathname}
-          parent={parent}
+          parent={_parent}
         />
       )}
       {configuration?.element && source.variant === "http" && (
@@ -43,7 +68,7 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
           children={configuration.element}
           currentKey={source.pathname}
           key={source.pathname}
-          parent={parent}
+          parent={_parent}
         />
       )}
     </>

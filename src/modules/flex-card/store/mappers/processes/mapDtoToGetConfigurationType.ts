@@ -26,7 +26,7 @@ const getData = (data: any): ConfigurationDataType | undefined => {
     let result: ConfigurationDataType | undefined = undefined;
     if (
       data.type === "configuration" &&
-      data.relation === "isolate" &&
+      ["isolate", "join"].includes(data.relation) &&
       ["http", "import"].includes(data?.source?.variant)
     ) {
       const source = mapDtoToRequestSourceType(data.source);
