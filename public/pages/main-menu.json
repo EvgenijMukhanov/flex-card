@@ -1,22 +1,37 @@
 {
   "element": "menu",
   "version": 1,
-  "methods": {
-    "handlers": {
-      "onSelect": [
-        {
-          "variant": "navigate",
-          "target": "key"
-        }
-      ]
-    }
-  },
   "props": {
     "mode": "inline",
     "items": [
       {
-        "key": "1",
-        "label": "menu 1"
+        "key": "home",
+        "label": "Home",
+        "handlers": {
+          "onSelect": [
+            {
+              "variant": "navigate",
+              "data": {
+                "type": "configuration",
+                "relation": "isolate",
+                "source": {
+                  "variant": "http",
+                  "method": "GET",
+                  "execute": "await",
+                  "baseUrl": "/",
+                  "pathname": "home"
+                }
+              },
+              "routes": {
+                "routes": [
+                  {
+                    "pathname": "home"
+                  }
+                ]
+              }
+            }
+          ]
+        }
       },
       {
         "type": "divider"

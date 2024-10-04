@@ -1,10 +1,10 @@
-import ru from "antd/es/locale/ru_RU";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ConfigProvider } from "./shared/config";
 import { FlexPage } from "./modules/flex-card/pages";
 import { ParamsType } from "./modules/flex-card/store/types/ext/params";
 import { LoadProcess } from "./processes";
+import ru from "antd/es/locale/ru_RU";
 
 const startConfigurationPathname = "pages/main";
 

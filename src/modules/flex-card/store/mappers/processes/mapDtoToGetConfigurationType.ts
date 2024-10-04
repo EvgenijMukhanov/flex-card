@@ -1,8 +1,6 @@
-import {
-  ConfigurationDataType,
-  GetConfigurationType,
-} from "../../types/processes/get-configuration";
-import { mapDtoToRequestSourceType } from "../common/sources/mapDtoToRequestSourceType";
+import { GetConfigurationType } from "../../types/processes/get-configuration";
+import { mapDtoToConfigurationDataIsolateType } from "../common/configurations/mapDtoToConfigurationDataIsolateType";
+import { mapDtoToConfigurationDataJoinType } from "../common/configurations/mapDtoToConfigurationDataJoinType";
 
 export const mapDtoToGetConfigurationType = (
   children: any,
@@ -15,30 +13,10 @@ export const mapDtoToGetConfigurationType = (
     return {
       element: "get.configuration",
       version: children.version,
-      data: getData(children.data),
+      data:
+        mapDtoToConfigurationDataJoinType(children.data) ||
+        mapDtoToConfigurationDataIsolateType(children.data),
     };
-  }
-  return undefined;
-};
-
-const getData = (data: any): ConfigurationDataType | undefined => {
-  if (typeof data === "object") {
-    let result: ConfigurationDataType | undefined = undefined;
-    if (
-      data.type === "configuration" &&
-      ["isolate", "join"].includes(data.relation) &&
-      ["http", "import"].includes(data?.source?.variant)
-    ) {
-      const source = mapDtoToRequestSourceType(data.source);
-      if (source) {
-        result = {
-          type: "configuration",
-          relation: data.relation,
-          source,
-        };
-      }
-    }
-    return result;
   }
   return undefined;
 };

@@ -28,7 +28,6 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
     };
     load();
   }, [source]);
-  // console.log("configuration", configuration?.model);
 
   const joinConfiguration = (data: {
     configuration: {

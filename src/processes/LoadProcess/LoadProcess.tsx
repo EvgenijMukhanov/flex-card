@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { init as initFlexCard } from "../../modules/flex-card";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
@@ -9,6 +9,10 @@ type Props = {
 export const LoadProcess = (props: Props) => {
   const navigate = useNavigate();
   const [load, setLoad] = useState<boolean>(false);
+  const locationParams = useParams();
+  console.log("locationParams", locationParams);
+  const location = useLocation();
+  console.log("location", location);
 
   useEffect(() => {
     initFlexCard({

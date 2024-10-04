@@ -1,14 +1,15 @@
-import { hasElementMethods } from "../../helpers/elements/hasElementMethods";
+import { hasElementHandlers } from "../../helpers/elements/hasElementHandlers";
 import { hasElementProps } from "../../helpers/elements/hasElementProps";
 import { hasElementStyles } from "../../helpers/elements/hasElementStyles";
 import { ElementType } from "../../types/element";
+import { MenuHandlersType } from "../../types/elements/handlers/menuHandlers";
 import {
   MenuItemType,
   MenuPropsType,
   MenuType,
 } from "../../types/elements/menu";
 import { mapDtoToStylesType } from "../common/mapDtoToStylesType";
-import { mapDtoToMethodsType } from "../common/methods/mapDtoToMethodsType";
+import { mapDtoToDirectActionMethodType } from "../methods/mapDtoToDirectActionMethodType";
 
 export const mapDtoToMenuType = (children: any): ElementType | undefined => {
   if (
@@ -36,14 +37,6 @@ export const mapDtoToMenuType = (children: any): ElementType | undefined => {
         element.props = props;
       }
     }
-
-    if (hasElementMethods(children)) {
-      const methods = mapDtoToMethodsType(children.methods, ["onSelect"]);
-      if (methods) {
-        element.methods = methods;
-      }
-    }
-
     return element;
   }
 
@@ -72,7 +65,6 @@ const getProps = (data: any): MenuPropsType => {
 const getMenuItems = (data: any): MenuItemType[] => {
   if (Array.isArray(data)) {
     const result: MenuItemType[] = [];
-
     data.forEach((item) => {
       if (item.type === "divider") {
         result.push({
@@ -99,24 +91,48 @@ const getMenuItems = (data: any): MenuItemType[] => {
       if (typeof item.key === "string" && typeof item.label === "string") {
         const children = getMenuItems(item.children);
         if (children.length > 0) {
-          result.push({
+          const menuItem: MenuItemType = {
             key: String(item.key),
             label: String(item.label),
             disabled: item.disabled ? true : false,
             danger: item.danger ? true : undefined,
             children,
-          });
+          };
+          result.push(menuItem);
         } else {
-          result.push({
+          const menuItem: MenuItemType = {
             key: String(item.key),
             label: String(item.label),
             danger: item.danger ? true : false,
             disabled: item.disabled ? true : undefined,
-          });
+          };
+          if (hasElementHandlers(item)) {
+            const handlers = getHandlers(item);
+            if (handlers) {
+              menuItem.handlers = handlers;
+            }
+          }
+          result.push(menuItem);
         }
       }
     });
     return result;
   }
   return [];
+};
+
+const getHandlers = (item: any): MenuHandlersType | undefined => {
+  const result: MenuHandlersType = {};
+  if (item.handlers) {
+    if (item.handlers.onSelect) {
+      const onSelect = mapDtoToDirectActionMethodType(item.handlers.onSelect);
+      if (onSelect) {
+        result.onSelect = onSelect;
+      }
+    }
+    if (Object.keys(result).length > 0) {
+      return result;
+    }
+  }
+  return undefined;
 };

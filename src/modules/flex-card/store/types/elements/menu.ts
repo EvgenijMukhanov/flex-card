@@ -1,12 +1,11 @@
 import { AnyObject } from "../../../../../shared/types/common/AnyObject";
-import { MethodsType } from "../common/methods/methods";
+import { MenuHandlersType } from "./handlers/menuHandlers";
 
 export type MenuType = {
   element: "menu";
   version: number;
   props?: MenuPropsType;
   styles?: AnyObject;
-  methods?: MethodsType;
 };
 
 export type MenuPropsType = {
@@ -25,6 +24,7 @@ export type MainMenuType = {
   label: string;
   disabled?: boolean;
   danger?: boolean;
+  handlers?: MenuHandlersType;
   children?: MenuItemType[];
 };
 
@@ -33,6 +33,7 @@ export type SubMenuType = {
   label: string;
   disabled?: boolean;
   danger?: boolean;
+  handlers?: MenuHandlersType;
   children?: MenuItemType[];
 };
 

@@ -1,4 +1,8 @@
+import { RoutesType } from "../../routing/routes";
+import { ConfigurationDataIsolateType } from "../../sources/configurationData";
+
 export type NavigateMethodType = {
   variant: "navigate";
-  target: "key";
+  data?: ConfigurationDataIsolateType;
+  routes?: RoutesType;
 };

@@ -108,8 +108,8 @@ const updateElement = ({
         element.childrens.length >= idx &&
         element.childrens[idx]
       ) {
-        const _childrens = element.childrens
-          .map((item: ElementType, _idx: number) => {
+        const _childrens = element.childrens.map(
+          (item: ElementType, _idx: number) => {
             if (_idx === idx) {
               const _breadcrumbs = breadcrumbs.filter(
                 (_: number, idx: number) => {
@@ -124,13 +124,14 @@ const updateElement = ({
               return _element;
             }
             return item;
-          })
-          const childrens: ElementType[] = []
-          _childrens.forEach(item => {
-            if (item) {
-              childrens.push(item)
-            }
-          })
+          },
+        );
+        const childrens: ElementType[] = [];
+        _childrens.forEach((item) => {
+          if (item) {
+            childrens.push(item);
+          }
+        });
         if (_childrens) {
           const _element: ElementType = { ...element, childrens };
           return _element;
