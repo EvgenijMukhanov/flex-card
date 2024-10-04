@@ -1,6 +1,6 @@
-import { hasElementChildrens } from "../../helpers/elements/hasElementChildrens";
-import { hasElementProps } from "../../helpers/elements/hasElementProps";
-import { hasElementStyles } from "../../helpers/elements/hasElementStyles";
+import { hasElementChildrens } from "../../helpers/elements/hasElements/hasElementChildrens";
+import { hasElementProps } from "../../helpers/elements/hasElements/hasElementProps";
+import { hasElementStyles } from "../../helpers/elements/hasElements/hasElementStyles";
 import { ElementType } from "../../types/element";
 import {
   TypographyPropsType,

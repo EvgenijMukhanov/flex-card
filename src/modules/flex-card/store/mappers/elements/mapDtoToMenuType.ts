@@ -1,6 +1,6 @@
-import { hasElementHandlers } from "../../helpers/elements/hasElementHandlers";
-import { hasElementProps } from "../../helpers/elements/hasElementProps";
-import { hasElementStyles } from "../../helpers/elements/hasElementStyles";
+import { hasElementHandlers } from "../../helpers/elements/hasElements/hasElementHandlers";
+import { hasElementProps } from "../../helpers/elements/hasElements/hasElementProps";
+import { hasElementStyles } from "../../helpers/elements/hasElements/hasElementStyles";
 import { ElementType } from "../../types/element";
 import { MenuHandlersType } from "../../types/elements/handlers/menuHandlers";
 import {
@@ -88,10 +88,15 @@ const getMenuItems = (data: any): MenuItemType[] => {
           }
         }
       }
-      if (typeof item.key === "string" && typeof item.label === "string") {
+      if (
+        typeof item.key === "string" &&
+        typeof item.label === "string" &&
+        (item.type === "menu" || item.type === "submenu")
+      ) {
         const children = getMenuItems(item.children);
         if (children.length > 0) {
           const menuItem: MenuItemType = {
+            type: item.type,
             key: String(item.key),
             label: String(item.label),
             disabled: item.disabled ? true : false,
@@ -101,6 +106,7 @@ const getMenuItems = (data: any): MenuItemType[] => {
           result.push(menuItem);
         } else {
           const menuItem: MenuItemType = {
+            type: item.type,
             key: String(item.key),
             label: String(item.label),
             danger: item.danger ? true : false,

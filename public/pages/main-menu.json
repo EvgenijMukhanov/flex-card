@@ -6,6 +6,7 @@
     "items": [
       {
         "key": "home",
+        "type": "menu",
         "label": "Home",
         "handlers": {
           "onSelect": [
@@ -37,15 +38,43 @@
         "type": "divider"
       },
       {
-        "key": "2",
-        "label": "menu 2",
+        "key": "admin",
+        "type": "menu",
+        "label": "Admin",
         "children": [
           {
-            "key": "2-1",
-            "label": "menu 2-1"
+            "key": "permissions",
+            "type": "submenu",
+            "label": "Permissions",
+            "handlers": {
+              "onSelect": [
+                {
+                  "variant": "navigate",
+                  "data": {
+                    "type": "configuration",
+                    "relation": "isolate",
+                    "source": {
+                      "variant": "http",
+                      "method": "GET",
+                      "execute": "await",
+                      "baseUrl": "/",
+                      "pathname": "permissions"
+                    }
+                  },
+                  "routes": {
+                    "routes": [
+                      {
+                        "pathname": "permissions"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           },
           {
             "key": "2-2",
+            "type": "submenu",
             "label": "menu 2-2"
           }
         ]
@@ -56,14 +85,17 @@
         "children": [
           {
             "key": "4",
+            "type": "submenu",
             "label": "menu 4"
           },
           {
             "key": "5",
+            "type": "submenu",
             "label": "menu 5"
           },
           {
             "key": "6",
+            "type": "submenu",
             "label": "menu 6"
           }
         ]
@@ -74,10 +106,12 @@
         "children": [
           {
             "key": "7",
+            "type": "submenu",
             "label": "menu 7"
           },
           {
             "key": "8",
+            "type": "submenu",
             "label": "menu 8",
             "disabled": true
           },
@@ -86,6 +120,7 @@
           },
           {
             "key": "9",
+            "type": "submenu",
             "label": "menu 9",
             "danger": true
           }

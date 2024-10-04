@@ -1,5 +1,5 @@
-import { hasElementChildrens } from "../../helpers/elements/hasElementChildrens";
-import { hasElementStyles } from "../../helpers/elements/hasElementStyles";
+import { hasElementChildrens } from "../../helpers/elements/hasElements/hasElementChildrens";
+import { hasElementStyles } from "../../helpers/elements/hasElements/hasElementStyles";
 import { ElementType } from "../../types/element";
 import { LayoutFooterType } from "../../types/elements/layout-footer";
 import { mapDtoToStylesType } from "../common/mapDtoToStylesType";

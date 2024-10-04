@@ -20,6 +20,7 @@ export type MenuItemType =
   | MenuDividerType;
 
 export type MainMenuType = {
+  type: "menu";
   key: string;
   label: string;
   disabled?: boolean;
@@ -29,6 +30,7 @@ export type MainMenuType = {
 };
 
 export type SubMenuType = {
+  type: "submenu";
   key: string;
   label: string;
   disabled?: boolean;
@@ -45,4 +47,45 @@ export type MenuItemGroupType = {
 
 export type MenuDividerType = {
   type: "divider";
+};
+
+// VM
+export type MenuVMType = {
+  element: "menu";
+  version: number;
+  props?: MenuPropsVMType;
+  styles?: AnyObject;
+};
+
+export type MenuPropsVMType = {
+  items?: MenuItemVMType[];
+  mode?: "vertical" | "horizontal" | "inline";
+};
+
+export type MenuItemVMType =
+  | MainMenuVMType
+  | SubMenuVMType
+  | MenuItemGroupVMType
+  | MenuDividerType;
+
+export type MainMenuVMType = {
+  key: string;
+  label: string;
+  disabled?: boolean;
+  danger?: boolean;
+  children?: MenuItemVMType[];
+};
+
+export type SubMenuVMType = {
+  key: string;
+  label: string;
+  disabled?: boolean;
+  danger?: boolean;
+  children?: MenuItemVMType[];
+};
+
+export type MenuItemGroupVMType = {
+  type: "group";
+  label: string;
+  children: MenuItemVMType[];
 };
