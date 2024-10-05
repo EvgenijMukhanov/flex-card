@@ -1,5 +1,6 @@
 import { ElementChildrens } from "../..";
 import { Layout } from "../../../../../shared/grids";
+import { Outlet } from "../../../../../shared/routing";
 import { ElementParentType } from "../../../store/types/common/elements/parent";
 import { LayoutContentType } from "../../../store/types/elements/layout-content";
 
@@ -24,6 +25,7 @@ export const LayoutContentWidget = ({
           parent={parent}
         />
       )}
+      <Outlet />
     </Layout.Content>
   );
 };

@@ -1,27 +1,69 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ConfigProvider } from "./shared/config";
-import { FlexPage } from "./modules/flex-card/pages";
-import { ParamsType } from "./modules/flex-card/store/types/ext/params";
-import { LoadProcess } from "./processes";
 import ru from "antd/es/locale/ru_RU";
+import { ConfigProvider } from "./shared/config";
+import { LoadProcess } from "./processes";
+import { FlexPageShell } from "./app/pages";
+import { ConfigurationDataIsolateType } from "./modules/flex-card/store/types/common/sources/configurationData";
+import { RoutingType } from "./modules/flex-card/store/types/common/routing/routing";
+import { FlexPage } from "./modules/flex-card/pages";
 
 const startConfigurationPathname = "pages/main";
 
-function App() {
-  const [params, setParams] = useState<ParamsType[]>([]);
+type RoutingModelType = {
+  configuration?: ConfigurationDataIsolateType;
+  routing?: RoutingType;
+};
 
-  const getRoutes = (params: ParamsType[]) => {
-    return params.map((item: ParamsType, idx: number) => {
+function App() {
+  const [routingModel, setRoutingModel] = useState<RoutingModelType[]>([]);
+
+  const updateRoutingModel = (data: RoutingModelType) => {
+    setRoutingModel((prev) => {
+      return [...prev, data];
+    });
+  };
+  console.log("routingModel", routingModel);
+
+  const getRoutes = (params: RoutingModelType) => {
+    let pathname = "";
+    params.routing?.routes.forEach((item) => {
+      if (item.pathname) {
+        if (pathname) {
+          pathname = `${pathname}/${item.pathname.join("/")}`;
+        } else {
+          pathname = `${item.pathname.join("/")}`;
+        }
+      }
+    });
+    const source = params.configuration?.source;
+    console.log("source", source);
+
+    console.log("pathname", pathname);
+
+    if (source && pathname) {
+      console.log("return");
+
       return (
         <Route
-          key={idx}
+          // key={'pathname'}
           index
-          path={item.path[0].attribute}
-          element={<FlexPage source={item.source} />}
+          path={pathname}
+          element={
+            <FlexPage
+              source={source}
+              ext={
+                {
+                  // callbacks: {
+                  //   navigate,
+                  // },
+                }
+              }
+            />
+          }
         ></Route>
       );
-    });
+    }
   };
 
   return (
@@ -47,7 +89,7 @@ function App() {
             <Route
               path="/*"
               element={
-                <FlexPage
+                <FlexPageShell
                   source={{
                     variant: "http",
                     method: "GET",
@@ -55,10 +97,11 @@ function App() {
                     baseUrl: "",
                     pathname: startConfigurationPathname,
                   }}
+                  updateRoutingModel={updateRoutingModel}
                 />
               }
             >
-              {getRoutes(params)}
+              {routingModel.length > 0 && <>{getRoutes(routingModel[0])}</>}
             </Route>
           </Routes>
         </ConfigProvider>

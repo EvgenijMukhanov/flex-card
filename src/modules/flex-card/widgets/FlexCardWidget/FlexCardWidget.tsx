@@ -6,6 +6,7 @@ import { loadConfiguration } from "../../store/helpers/configuration/loadConfigu
 import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 import { ElementParentType } from "../../store/types/common/elements/parent";
 import { joinConfigurationCallback } from "../../store/helpers/elements/callbacks/joinConfigurationCallback";
+import { NavigateMethodType } from "../../store/types/common/methods/variants/navigateMethod";
 
 type Props = {
   source: RequestSourceType;
@@ -21,13 +22,41 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
     | undefined
   >(undefined);
 
+  const [currentSource, setCurrentSource] = useState<
+    RequestSourceType | undefined
+  >(undefined);
+
   useEffect(() => {
-    const load = async () => {
-      const result = await loadConfiguration(source);
-      setConfiguration(result);
-    };
-    load();
+    console.log("Change source", source);
+    console.log("currentSource", currentSource);
+    let change = true;
+    if (currentSource) {
+      if (source.variant === currentSource.variant) {
+        if (source.variant === "http" && currentSource.variant === "http") {
+          if (
+            source.baseUrl === currentSource.baseUrl &&
+            source.pathname === currentSource.pathname
+          ) {
+            change = false;
+          }
+        }
+      }
+    }
+
+    if (change) {
+      const load = async () => {
+        const result = await loadConfiguration(source);
+        setConfiguration(result);
+        setCurrentSource(source);
+      };
+      load();
+    }
   }, [source]);
+
+  // useEffect(() => {
+  //   console.log('FlexCardWidget mouth', source);
+
+  // }, [])
 
   const joinConfiguration = (data: {
     configuration: {
@@ -48,9 +77,20 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
     }
   };
 
+  const navigate = (data: NavigateMethodType) => {
+    if (
+      parent &&
+      parent.callbacks &&
+      parent.callbacks.navigate &&
+      typeof parent.callbacks.navigate === "function"
+    ) {
+      parent.callbacks.navigate(data);
+    }
+  };
+
   const _parent: ElementParentType = {
     ...parent,
-    callbacks: { element: "root", joinConfiguration },
+    callbacks: { element: "root", joinConfiguration, navigate },
   };
 
   return (

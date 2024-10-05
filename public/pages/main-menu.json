@@ -19,14 +19,15 @@
                   "variant": "http",
                   "method": "GET",
                   "execute": "await",
-                  "baseUrl": "/",
-                  "pathname": "home"
+                  "baseUrl": "",
+                  "pathname": "pages/home"
                 }
               },
-              "routes": {
+              "routing": {
                 "routes": [
                   {
-                    "pathname": "home"
+                    "type": "pathname",
+                    "pathname": ["home"]
                   }
                 ]
               }
@@ -57,14 +58,15 @@
                       "variant": "http",
                       "method": "GET",
                       "execute": "await",
-                      "baseUrl": "/",
+                      "baseUrl": "",
                       "pathname": "permissions"
                     }
                   },
-                  "routes": {
+                  "routing": {
                     "routes": [
                       {
-                        "pathname": "permissions"
+                        "type": "pathname",
+                        "pathname": ["permissions"]
                       }
                     ]
                   }

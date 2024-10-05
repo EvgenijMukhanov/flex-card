@@ -1,0 +1,7 @@
+{
+  "element": "typography",
+  "version": 1,
+  "props": {
+    "children": "home"
+  }
+}

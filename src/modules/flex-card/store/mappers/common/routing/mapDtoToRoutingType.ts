@@ -1,7 +1,8 @@
-import { RoutesType, RouteType } from "../../../types/common/routing/routes";
+import { checkArrayOfString } from "../../../helpers/common/utils/checkArrayOfString";
+import { RoutingType, RouteType } from "../../../types/common/routing/routing";
 
-export const mapDtoToRoutesType = (data: any): RoutesType | undefined => {
-  let result: RoutesType = {
+export const mapDtoToRoutingType = (data: any): RoutingType | undefined => {
+  let result: RoutingType = {
     routes: [],
   };
   if (
@@ -12,8 +13,9 @@ export const mapDtoToRoutesType = (data: any): RoutesType | undefined => {
   ) {
     const routes: RouteType[] = [];
     data.routes.forEach((item: any) => {
-      if (item && item.pathname && typeof item.pathname === "string") {
+      if (item && checkArrayOfString(item.pathname)) {
         routes.push({
+          type: "pathname",
           pathname: item.pathname,
         });
       }

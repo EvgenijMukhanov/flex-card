@@ -1,6 +1,6 @@
 import { NavigateMethodType } from "../../types/common/methods/variants/navigateMethod";
 import { mapDtoToConfigurationDataIsolateType } from "../common/configurations/mapDtoToConfigurationDataIsolateType";
-import { mapDtoToRoutesType } from "../common/routing/mapDtoToRoutesType";
+import { mapDtoToRoutingType } from "../common/routing/mapDtoToRoutingType";
 
 export const mapDtoToNavigateMethodType = (
   obj: any,
@@ -10,13 +10,13 @@ export const mapDtoToNavigateMethodType = (
     result = {
       variant: "navigate",
     };
-    const data = mapDtoToConfigurationDataIsolateType(obj.data);
-    if (data) {
-      result.data = data;
+    const configuration = mapDtoToConfigurationDataIsolateType(obj.data);
+    if (configuration) {
+      result.configuration = configuration;
     }
-    const routes = mapDtoToRoutesType(obj.routes);
-    if (routes) {
-      result.routes = routes;
+    const routing = mapDtoToRoutingType(obj.routing);
+    if (routing) {
+      result.routing = routing;
     }
   }
   return result;
