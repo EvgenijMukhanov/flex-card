@@ -4,4 +4,5 @@ export type ElementParentType = {
   breadcrumbs: number[];
   name: string;
   callbacks?: CallbacksType;
+  nesting: number;
 };

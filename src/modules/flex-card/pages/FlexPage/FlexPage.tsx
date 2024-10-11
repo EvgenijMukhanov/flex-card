@@ -1,15 +1,12 @@
 import { FlexCardWidget } from "../../widgets";
-import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 import { NavigateMethodType } from "../../store/types/common/methods/variants/navigateMethod";
 import { ExtPageType } from "../../store/types/ext/extPage";
-import { useEffect } from "react";
 
 type Props = {
-  source: RequestSourceType;
   ext: ExtPageType;
 };
 
-export const FlexPage = ({ source, ext }: Props) => {
+export const FlexPage = ({ ext }: Props) => {
   const navigate = (data: NavigateMethodType) => {
     if (
       ext &&
@@ -21,21 +18,21 @@ export const FlexPage = ({ source, ext }: Props) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("FlexPage mounth", source, ext);
-  // }, []);
-
   return (
     <>
       <FlexCardWidget
-        source={source}
+        source={ext.routing.configuration.source}
         parent={{
           breadcrumbs: [],
-          name: source.variant === "http" ? source.pathname : "",
+          name:
+            ext.routing.configuration.source.variant === "http"
+              ? ext.routing.configuration.source.pathname
+              : "",
           callbacks: {
             element: "root",
             navigate,
           },
+          nesting: ext.routing.nesting,
         }}
       />
     </>

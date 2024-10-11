@@ -4,23 +4,24 @@ import ru from "antd/es/locale/ru_RU";
 import { ConfigProvider } from "./shared/config";
 import { LoadProcess } from "./processes";
 import { FlexPageShell } from "./app/pages";
-import { ConfigurationDataIsolateType } from "./modules/flex-card/store/types/common/sources/configurationData";
-import { RoutingType } from "./modules/flex-card/store/types/common/routing/routing";
 import { FlexPage } from "./modules/flex-card/pages";
+import { RoutingModelType } from "./modules/flex-card/store/types/common/routing/routingModel";
 
 const startConfigurationPathname = "pages/main";
-
-type RoutingModelType = {
-  configuration?: ConfigurationDataIsolateType;
-  routing?: RoutingType;
-};
 
 function App() {
   const [routingModel, setRoutingModel] = useState<RoutingModelType[]>([]);
 
   const updateRoutingModel = (data: RoutingModelType) => {
     setRoutingModel((prev) => {
-      return [...prev, data];
+      const result: RoutingModelType[] = [];
+      prev.forEach((item) => {
+        if (item.nesting < data.nesting) {
+          result.push(item);
+        }
+      });
+      result.push(data);
+      return result;
     });
   };
   console.log("routingModel", routingModel);
@@ -51,14 +52,14 @@ function App() {
           path={pathname}
           element={
             <FlexPage
-              source={source}
-              ext={
-                {
-                  // callbacks: {
-                  //   navigate,
-                  // },
-                }
-              }
+              ext={{
+                routing: params,
+                callbacks: {
+                  navigate: (data) => {
+                    console.log("callbacks navigate", data);
+                  },
+                },
+              }}
             />
           }
         ></Route>
@@ -90,12 +91,29 @@ function App() {
               path="/*"
               element={
                 <FlexPageShell
-                  source={{
-                    variant: "http",
-                    method: "GET",
-                    execute: "await",
-                    baseUrl: "",
-                    pathname: startConfigurationPathname,
+                  ext={{
+                    routing: {
+                      nesting: 0,
+                      configuration: {
+                        type: "configuration",
+                        relation: "isolate",
+                        source: {
+                          variant: "http",
+                          method: "GET",
+                          execute: "await",
+                          baseUrl: "",
+                          pathname: startConfigurationPathname,
+                        },
+                      },
+                      routing: {
+                        routes: [
+                          {
+                            type: "pathname",
+                            pathname: [""],
+                          },
+                        ],
+                      },
+                    },
                   }}
                   updateRoutingModel={updateRoutingModel}
                 />

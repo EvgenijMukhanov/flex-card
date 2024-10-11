@@ -6,17 +6,20 @@ export const mapDtoToNavigateMethodType = (
   obj: any,
 ): NavigateMethodType | undefined => {
   let result: NavigateMethodType | undefined = undefined;
+  console.log("mapDtoToNavigateMethodType", obj);
+
   if (obj && obj.variant === "navigate") {
-    result = {
-      variant: "navigate",
-    };
     const configuration = mapDtoToConfigurationDataIsolateType(obj.data);
-    if (configuration) {
-      result.configuration = configuration;
-    }
     const routing = mapDtoToRoutingType(obj.routing);
-    if (routing) {
-      result.routing = routing;
+    if (configuration && routing) {
+      result = {
+        variant: "navigate",
+        data: {
+          nesting: 0,
+          configuration,
+          routing,
+        },
+      };
     }
   }
   return result;

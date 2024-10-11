@@ -13,29 +13,20 @@ type Props = {
 export const MenuWidget = ({ children, currentKey, parent }: Props) => {
   const styles = children.styles || {};
   const props = mapMenuPropsTypeToVM(children.props) || {};
-  // console.log("props", props);
-
-  // const methods = children?.methods?.handlers
-  //   ? createHandlers(children.methods)
-  //   : {};
-
-  // console.log("MenuWidget");
-  // console.log('parent', parent);
-  // console.log("children", children);
   const handleSelect = (event: any) => {
-    // console.log("handleSelect", event);
     const handlerModel = getMenuItemHandler(
       children.props?.items,
       event.keyPath,
     );
-    // console.log("handlerModel", handlerModel);
+    console.log("handlerModel", handlerModel);
+    console.log("parent", parent);
+
     if (
       handlerModel?.onSelect &&
       Array.isArray(handlerModel.onSelect) &&
       handlerModel.onSelect.length > 0
     ) {
       handlerModel.onSelect.forEach((handler) => {
-        // console.log("handler", handler);
         if (handler.variant === "navigate") {
           if (
             parent &&

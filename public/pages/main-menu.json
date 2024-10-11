@@ -59,7 +59,7 @@
                       "method": "GET",
                       "execute": "await",
                       "baseUrl": "",
-                      "pathname": "permissions"
+                      "pathname": "pages/permissions"
                     }
                   },
                   "routing": {

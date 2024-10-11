@@ -2,27 +2,23 @@ import { useNavigate } from "react-router-dom";
 import { FlexPage } from "../../../modules/flex-card/pages";
 import { RequestSourceType } from "../../../modules/flex-card/store/types/common/sources/requestSource";
 import { NavigateMethodType } from "../../../modules/flex-card/store/types/common/methods/variants/navigateMethod";
-import { ConfigurationDataIsolateType } from "../../../modules/flex-card/store/types/common/sources/configurationData";
-import { RoutingType } from "../../../modules/flex-card/store/types/common/routing/routing";
+import { RoutingModelType } from "../../../modules/flex-card/store/types/common/routing/routingModel";
+import { ExtPageType } from "../../../modules/flex-card/store/types/ext/extPage";
 
 type PropsType = {
-  source: RequestSourceType;
+  // source: RequestSourceType;
+  ext: ExtPageType;
   updateRoutingModel: (data: RoutingModelType) => void;
 };
 
-type RoutingModelType = {
-  configuration?: ConfigurationDataIsolateType;
-  routing?: RoutingType;
-};
+export const FlexPageShell = ({ ext, updateRoutingModel }: PropsType) => {
+  const navigate = useNavigate();
 
-export const FlexPageShell = ({ source, updateRoutingModel }: PropsType) => {
-  const nav = useNavigate();
-
-  const navigate = (data: NavigateMethodType) => {
+  const handleNavigate = (data: NavigateMethodType) => {
     console.log("navigate", data);
     let pathname = "";
-    data.routing?.routes.forEach((route) => {
-      if (route.pathname) {
+    data.data.routing.routes.forEach((route) => {
+      if (route.type === "pathname") {
         if (pathname) {
           pathname = `${pathname}/${route.pathname.join("/")}`;
         } else {
@@ -31,19 +27,19 @@ export const FlexPageShell = ({ source, updateRoutingModel }: PropsType) => {
       }
     });
     updateRoutingModel({
-      configuration: data.configuration,
-      routing: data.routing,
+      nesting: ext.routing.nesting++,
+      configuration: data.data.configuration,
+      routing: data.data.routing,
     });
-
-    nav(pathname);
+    navigate(pathname);
   };
 
   return (
     <>
       <FlexPage
-        source={source}
         ext={{
-          callbacks: { navigate },
+          callbacks: { navigate: handleNavigate },
+          routing: ext.routing,
         }}
       />
     </>

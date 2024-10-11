@@ -7,6 +7,7 @@ import { RequestSourceType } from "../../store/types/common/sources/requestSourc
 import { ElementParentType } from "../../store/types/common/elements/parent";
 import { joinConfigurationCallback } from "../../store/helpers/elements/callbacks/joinConfigurationCallback";
 import { NavigateMethodType } from "../../store/types/common/methods/variants/navigateMethod";
+import { checkEqualSources } from "../../store/helpers/common/sources/checkEqualSources";
 
 type Props = {
   source: RequestSourceType;
@@ -27,22 +28,12 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
   >(undefined);
 
   useEffect(() => {
-    console.log("Change source", source);
-    console.log("currentSource", currentSource);
     let change = true;
     if (currentSource) {
-      if (source.variant === currentSource.variant) {
-        if (source.variant === "http" && currentSource.variant === "http") {
-          if (
-            source.baseUrl === currentSource.baseUrl &&
-            source.pathname === currentSource.pathname
-          ) {
-            change = false;
-          }
-        }
+      if (checkEqualSources(currentSource, source)) {
+        change = false;
       }
     }
-
     if (change) {
       const load = async () => {
         const result = await loadConfiguration(source);
@@ -52,11 +43,6 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
       load();
     }
   }, [source]);
-
-  // useEffect(() => {
-  //   console.log('FlexCardWidget mouth', source);
-
-  // }, [])
 
   const joinConfiguration = (data: {
     configuration: {
