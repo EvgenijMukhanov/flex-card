@@ -6,8 +6,6 @@ export const mapDtoToNavigateMethodType = (
   obj: any,
 ): NavigateMethodType | undefined => {
   let result: NavigateMethodType | undefined = undefined;
-  console.log("mapDtoToNavigateMethodType", obj);
-
   if (obj && obj.variant === "navigate") {
     const configuration = mapDtoToConfigurationDataIsolateType(obj.data);
     const routing = mapDtoToRoutingType(obj.routing);

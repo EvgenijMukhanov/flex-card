@@ -64,11 +64,8 @@
                   "version": 1,
                   "childrens": [
                     {
-                      "element": "typography",
-                      "version": 1,
-                      "props": {
-                        "children": "layout.content"
-                      }
+                      "element": "routing.outlet",
+                      "version": 1
                     }
                   ]
                 },

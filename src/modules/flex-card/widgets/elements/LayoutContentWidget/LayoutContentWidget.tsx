@@ -25,7 +25,6 @@ export const LayoutContentWidget = ({
           parent={parent}
         />
       )}
-      <Outlet />
     </Layout.Content>
   );
 };

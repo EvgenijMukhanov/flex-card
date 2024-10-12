@@ -18,9 +18,6 @@ export const MenuWidget = ({ children, currentKey, parent }: Props) => {
       children.props?.items,
       event.keyPath,
     );
-    console.log("handlerModel", handlerModel);
-    console.log("parent", parent);
-
     if (
       handlerModel?.onSelect &&
       Array.isArray(handlerModel.onSelect) &&

@@ -16,8 +16,6 @@ export const TestPage = ({ configuration }: Props) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  console.log("configuration", configuration);
-
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider

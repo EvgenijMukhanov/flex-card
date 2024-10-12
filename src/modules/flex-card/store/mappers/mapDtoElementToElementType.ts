@@ -8,6 +8,7 @@ import { mapDtoToLayoutType } from "./elements/mapDtoToLayoutType";
 import { mapDtoToMenuType } from "./elements/mapDtoToMenuType";
 import { mapDtoToTypographyType } from "./elements/mapDtoToTypographyType";
 import { mapDtoToGetConfigurationType } from "./processes/mapDtoToGetConfigurationType";
+import { mapDtoToRoutingOutlet } from "./routing/mapDtoToRoutingOutlet";
 
 export const mapDtoElementToElementType = (
   children: any,
@@ -32,6 +33,8 @@ export const mapDtoElementToElementType = (
         return mapDtoToMenuType(children);
       case "get.configuration":
         return mapDtoToGetConfigurationType(children);
+      case "routing.outlet":
+        return mapDtoToRoutingOutlet(children);
       default:
         return undefined;
     }

@@ -7,6 +7,7 @@ import { LayoutSiderType } from "./elements/layout-sider";
 import { MenuType } from "./elements/menu";
 import { TypographyType } from "./elements/typography";
 import { GetConfigurationType } from "./processes/get-configuration";
+import { RoutingOutletType } from "./routing/routing-outlet";
 
 export type ElementType =
   | LayoutType
@@ -17,4 +18,5 @@ export type ElementType =
   | TypographyType
   | FlexType
   | MenuType
-  | GetConfigurationType;
+  | GetConfigurationType
+  | RoutingOutletType;

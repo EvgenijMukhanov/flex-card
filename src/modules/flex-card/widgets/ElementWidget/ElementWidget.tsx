@@ -11,6 +11,7 @@ import {
   TypographyWidget,
 } from "../elements";
 import { GetConfigurationWidget } from "../processes";
+import { RoutingOutletWidget } from "../routing";
 
 type Props = {
   children: ElementType;
@@ -79,6 +80,13 @@ export const ElementWidget = ({ children, currentKey, parent }: Props) => {
       )}
       {children.element === "menu" && (
         <MenuWidget
+          children={children}
+          currentKey={currentKey}
+          parent={parent}
+        />
+      )}
+      {children.element === "routing.outlet" && (
+        <RoutingOutletWidget
           children={children}
           currentKey={currentKey}
           parent={parent}

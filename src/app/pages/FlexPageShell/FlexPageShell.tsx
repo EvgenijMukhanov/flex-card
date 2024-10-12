@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { FlexPage } from "../../../modules/flex-card/pages";
-import { RequestSourceType } from "../../../modules/flex-card/store/types/common/sources/requestSource";
 import { NavigateMethodType } from "../../../modules/flex-card/store/types/common/methods/variants/navigateMethod";
 import { RoutingModelType } from "../../../modules/flex-card/store/types/common/routing/routingModel";
 import { ExtPageType } from "../../../modules/flex-card/store/types/ext/extPage";
@@ -15,7 +14,7 @@ export const FlexPageShell = ({ ext, updateRoutingModel }: PropsType) => {
   const navigate = useNavigate();
 
   const handleNavigate = (data: NavigateMethodType) => {
-    console.log("navigate", data);
+    console.log("handleNavigate", data);
     let pathname = "";
     data.data.routing.routes.forEach((route) => {
       if (route.type === "pathname") {

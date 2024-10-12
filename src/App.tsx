@@ -24,11 +24,10 @@ function App() {
       return result;
     });
   };
-  console.log("routingModel", routingModel);
 
-  const getRoutes = (params: RoutingModelType) => {
+  const getRoutes = (route: RoutingModelType, idx: number) => {
     let pathname = "";
-    params.routing?.routes.forEach((item) => {
+    route.routing?.routes.forEach((item) => {
       if (item.pathname) {
         if (pathname) {
           pathname = `${pathname}/${item.pathname.join("/")}`;
@@ -37,34 +36,25 @@ function App() {
         }
       }
     });
-    const source = params.configuration?.source;
-    console.log("source", source);
-
-    console.log("pathname", pathname);
-
-    if (source && pathname) {
-      console.log("return");
-
-      return (
-        <Route
-          // key={'pathname'}
-          index
-          path={pathname}
-          element={
-            <FlexPage
-              ext={{
-                routing: params,
-                callbacks: {
-                  navigate: (data) => {
-                    console.log("callbacks navigate", data);
-                  },
+    return (
+      <Route
+        key={idx}
+        index
+        path={pathname}
+        element={
+          <FlexPage
+            ext={{
+              routing: { ...route, nesting: route.nesting++ },
+              callbacks: {
+                navigate: (data) => {
+                  console.log("callbacks navigate", data);
                 },
-              }}
-            />
-          }
-        ></Route>
-      );
-    }
+              },
+            }}
+          />
+        }
+      ></Route>
+    );
   };
 
   return (
@@ -119,7 +109,13 @@ function App() {
                 />
               }
             >
-              {routingModel.length > 0 && <>{getRoutes(routingModel[0])}</>}
+              {routingModel.length > 0 && (
+                <>
+                  {routingModel.map((item: RoutingModelType, idx: number) => {
+                    return getRoutes(item, idx);
+                  })}
+                </>
+              )}
             </Route>
           </Routes>
         </ConfigProvider>
