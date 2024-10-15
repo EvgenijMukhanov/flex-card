@@ -1,64 +1,56 @@
 import { ConfigurationModel } from "../../../types/configurationModel";
 import { ElementType } from "../../../types/element";
+import { ElementsType } from "../../../types/elements";
 
 export const joinConfigurationCallback = ({
   rootConfiguration,
   configuration,
   breadcrumbs,
 }: {
-  rootConfiguration: {
-    model: ConfigurationModel | undefined;
-    element: ElementType | undefined;
-  };
-  configuration: {
-    model: ConfigurationModel | undefined;
-    element: ElementType | undefined;
-  };
+  rootConfiguration: ConfigurationModel;
+  configuration: ConfigurationModel;
   breadcrumbs: number[];
-}): {
-  model: ConfigurationModel | undefined;
-  element: ElementType | undefined;
-} => {
+}): ConfigurationModel => {
   if (breadcrumbs.length > 0) {
-    if (rootConfiguration.model) {
+    if (rootConfiguration.elements) {
       if (
-        Array.isArray(rootConfiguration.model.childrens) &&
-        rootConfiguration.model.childrens.length > 0
+        Array.isArray(rootConfiguration.elements.childrens) &&
+        rootConfiguration.elements.childrens.length > 0
       ) {
         const result = updateModel({
           breadcrumbs,
-          model: rootConfiguration.model,
+          rootElements: rootConfiguration.elements,
           configuration,
         });
         return {
           element: undefined,
-          model: result,
+          elements: result,
         };
       }
     }
   }
   return {
     element: undefined,
-    model: undefined,
+    elements: undefined,
   };
 };
 
 const updateModel = ({
   breadcrumbs,
-  model,
+  rootElements,
   configuration,
 }: {
   breadcrumbs: number[];
-  model: ConfigurationModel;
-  configuration: {
-    model: ConfigurationModel | undefined;
-    element: ElementType | undefined;
-  };
-}): ConfigurationModel | undefined => {
+  rootElements: ElementsType;
+  configuration: ConfigurationModel;
+}): ElementsType | undefined => {
   if (breadcrumbs.length > 0) {
     const idx: number = breadcrumbs[0];
-    if (Array.isArray(model.childrens) && model.childrens.length >= idx) {
-      const element = model.childrens[idx];
+    if (
+      Array.isArray(rootElements.childrens) &&
+      rootElements.childrens.length >= idx
+    ) {
+      const element = rootElements.childrens[idx];
       const _breadcrumbs = breadcrumbs.filter((item: number, idx: number) => {
         return idx > 0;
       });
@@ -86,10 +78,7 @@ const updateElement = ({
 }: {
   breadcrumbs: number[];
   element: ElementType;
-  configuration: {
-    model: ConfigurationModel | undefined;
-    element: ElementType | undefined;
-  };
+  configuration: ConfigurationModel;
 }): ElementType | undefined => {
   if (breadcrumbs.length > 0) {
     const idx: number = breadcrumbs[0];

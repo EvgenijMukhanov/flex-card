@@ -16,11 +16,7 @@ type Props = {
 
 export const FlexCardWidget = ({ source, parent }: Props) => {
   const [configuration, setConfiguration] = useState<
-    | {
-        model: ConfigurationModel | undefined;
-        element: ElementType | undefined;
-      }
-    | undefined
+    ConfigurationModel | undefined
   >(undefined);
 
   const [currentSource, setCurrentSource] = useState<
@@ -39,16 +35,20 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
         const result = await loadConfiguration(source);
         setConfiguration(result);
         setCurrentSource(source);
+        if (
+          parent &&
+          parent.hooks &&
+          typeof parent.hooks.onLoadConfiguration === "function"
+        ) {
+          parent.hooks.onLoadConfiguration(result);
+        }
       };
       load();
     }
   }, [source]);
 
   const joinConfiguration = (data: {
-    configuration: {
-      model: ConfigurationModel | undefined;
-      element: ElementType | undefined;
-    };
+    configuration: ConfigurationModel;
     breadcrumbs: number[];
   }) => {
     if (configuration && data.configuration && data.breadcrumbs) {
@@ -81,9 +81,9 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
 
   return (
     <>
-      {configuration?.model && source.variant === "http" && (
+      {configuration?.elements && source.variant === "http" && (
         <ElementChildrens
-          childrens={configuration.model.childrens}
+          childrens={configuration.elements.childrens}
           currentKey={source.pathname}
           parent={_parent}
         />

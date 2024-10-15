@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Layout } from "../../../shared/grids";
 import { theme } from "../../../shared/config";
-import { AnyObject } from "../../../shared/types/common/AnyObject";
 import { ConfigurationModel } from "../../../modules/flex-card/store/types/configurationModel";
 
 const { Header, Content, Footer, Sider } = Layout;

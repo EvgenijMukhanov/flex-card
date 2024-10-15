@@ -1,7 +1,7 @@
-import { ConfigurationModel } from "../types/configurationModel";
+import { ElementsType } from "../types/elements";
 import { mapDtoChildrensToElements } from "./mapDtoChildrensToElements";
 
-export const mapDtoToConfigurationModel = (dto: any): ConfigurationModel => {
+export const mapDtoToConfigurationModel = (dto: any): ElementsType => {
   if (dto && Array.isArray(dto?.childrens)) {
     const childrens = mapDtoChildrensToElements(dto.childrens);
     if (childrens) {

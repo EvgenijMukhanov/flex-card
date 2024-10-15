@@ -30,6 +30,12 @@ export const GetConfigurationWidget = ({
             breadcrumbs: parent.breadcrumbs,
           });
         }
+        if (
+          parent.hooks &&
+          typeof parent.hooks.onLoadConfiguration === "function"
+        ) {
+          parent.hooks.onLoadConfiguration(result);
+        }
       };
       load();
     }

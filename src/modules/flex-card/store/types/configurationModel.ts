@@ -1,5 +1,7 @@
 import { ElementType } from "./element";
+import { ElementsType } from "./elements";
 
 export type ConfigurationModel = {
-  childrens: ElementType[];
+  element: ElementType | undefined;
+  elements: ElementsType | undefined;
 };
