@@ -25,12 +25,7 @@ export const MenuWidget = ({ children, currentKey, parent }: Props) => {
     ) {
       handlerModel.onSelect.forEach((handler) => {
         if (handler.variant === "navigate") {
-          if (
-            parent &&
-            parent.callbacks &&
-            parent.callbacks.navigate &&
-            typeof parent.callbacks.navigate === "function"
-          ) {
+          if (typeof parent?.callbacks?.navigate === "function") {
             parent.callbacks.navigate(handler);
           }
         }

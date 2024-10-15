@@ -8,7 +8,10 @@ type PropsType = {
   startConfigurationPathname: string;
 };
 
-export const FlexPageShell = ({ startConfigurationPathname }: PropsType) => {
+export const FlexShellPage = ({ startConfigurationPathname }: PropsType) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log("location", location);
   const [routingModel, setRoutingModel] = useState<RoutingModelType[]>([
     {
       nesting: 0,
@@ -46,9 +49,6 @@ export const FlexPageShell = ({ startConfigurationPathname }: PropsType) => {
       return result;
     });
   };
-  const navigate = useNavigate();
-  const location = useLocation();
-  console.log("location", location);
 
   const handleNavigate = (data: NavigateMethodType) => {
     let pathname = "";
@@ -69,12 +69,5 @@ export const FlexPageShell = ({ startConfigurationPathname }: PropsType) => {
     navigate(pathname);
   };
 
-  return (
-    <>
-      <RoutingStack
-        routingModel={routingModel}
-        handleNavigate={handleNavigate}
-      />
-    </>
-  );
+  return <RoutingStack routingModel={routingModel} navigate={handleNavigate} />;
 };

@@ -31,10 +31,10 @@ export const GetConfigurationWidget = ({
           });
         }
         if (
-          parent.hooks &&
-          typeof parent.hooks.onLoadConfiguration === "function"
+          parent.callbacks &&
+          typeof parent.callbacks.onLoadConfiguration === "function"
         ) {
-          parent.hooks.onLoadConfiguration(result);
+          parent.callbacks.onLoadConfiguration(result);
         }
       };
       load();

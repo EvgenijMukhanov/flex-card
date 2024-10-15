@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ru from "antd/es/locale/ru_RU";
 import { ConfigProvider } from "./shared/config";
 import { LoadProcess } from "./processes";
-import { FlexPageShell } from "./app/pages";
+import { FlexShellPage } from "./app/pages";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
             <Route
               path="/*"
               element={
-                <FlexPageShell startConfigurationPathname="pages/main" />
+                <FlexShellPage startConfigurationPathname="pages/main" />
               }
             />
           </Routes>

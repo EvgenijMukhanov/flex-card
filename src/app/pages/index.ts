@@ -1,2 +1,1 @@
-export { TestPage } from "./TestPage/TestPage";
-export { FlexPageShell } from "./FlexPageShell/FlexPageShell";
+export { FlexShellPage } from "./FlexShellPage/FlexShellPage";

@@ -8,32 +8,26 @@ type Props = {
 
 export const FlexPage = ({ ext }: Props) => {
   const navigate = (data: NavigateMethodType) => {
-    if (
-      ext &&
-      ext.callbacks &&
-      ext.callbacks.navigate &&
-      typeof ext.callbacks.navigate === "function"
-    ) {
+    if (typeof ext?.callbacks?.navigate === "function") {
       ext.callbacks.navigate(data);
     }
   };
   return (
-    <>
-      <FlexCardWidget
-        source={ext.routing.configuration.source}
-        parent={{
-          breadcrumbs: [],
-          name:
-            ext.routing.configuration.source.variant === "http"
-              ? ext.routing.configuration.source.pathname
-              : "",
-          callbacks: {
-            element: "root",
-            navigate,
-          },
-          nesting: ext.routing.nesting,
-        }}
-      />
-    </>
+    <FlexCardWidget
+      source={ext.routing.configuration.source}
+      parent={{
+        breadcrumbs: [],
+        name:
+          ext.routing.configuration.source.variant === "http"
+            ? ext.routing.configuration.source.pathname
+            : "",
+        callbacks: {
+          element: "root",
+          navigate,
+          onLoadConfiguration: ext.callbacks?.onLoadConfiguration,
+        },
+        nesting: ext.routing.nesting,
+      }}
+    />
   );
 };

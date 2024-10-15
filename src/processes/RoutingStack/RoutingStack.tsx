@@ -5,15 +5,15 @@ import { NavigateMethodType } from "../../modules/flex-card/store/types/common/m
 
 type PropsType = {
   routingModel: RoutingModelType[];
-  handleNavigate: (data: NavigateMethodType) => void;
+  navigate: (data: NavigateMethodType) => void;
 };
 
-export const RoutingStack = ({ routingModel, handleNavigate }: PropsType) => {
-  const getRoutes = (routingModel: RoutingModelType[], idx: number) => {
+export const RoutingStack = ({ routingModel, navigate }: PropsType) => {
+  const getRoutes = (routingModel: RoutingModelType[], nesting: number) => {
     if (routingModel.length > 0) {
-      const route = routingModel[0];
+      const routing = routingModel[0];
       let pathname = "";
-      route.routing?.routes.forEach((item) => {
+      routing.routing?.routes.forEach((item) => {
         if (item.pathname) {
           if (pathname) {
             pathname = `${pathname}/${item.pathname.join("/")}`;
@@ -24,21 +24,16 @@ export const RoutingStack = ({ routingModel, handleNavigate }: PropsType) => {
       });
       return (
         <Route
-          key={idx}
+          key={nesting}
           // index
           path={pathname}
           element={
             <FlexPage
               ext={{
-                // routing: { ...route, nesting: route.nesting++ },
-                routing: route,
+                routing,
                 callbacks: {
-                  navigate: (data) => {
-                    console.log("callbacks navigate", data);
-                    handleNavigate(data);
-                  },
-                },
-                hooks: {
+                  element: "root",
+                  navigate,
                   onLoadConfiguration: (data) => {
                     console.log("onLoadConfiguration getRoutes", data);
                   },
@@ -47,22 +42,15 @@ export const RoutingStack = ({ routingModel, handleNavigate }: PropsType) => {
             />
           }
         >
-          {routingModel &&
-            routingModel.length > 1 &&
+          {routingModel.length > 1 &&
             getRoutes(
               routingModel.filter((_, idx) => idx > 0),
-              idx + 1,
+              nesting + 1,
             )}
         </Route>
       );
     }
   };
 
-  return (
-    <>
-      <Routes>
-        {routingModel.length > 0 && <>{getRoutes(routingModel, 0)}</>}
-      </Routes>
-    </>
-  );
+  return <Routes>{getRoutes(routingModel, 0)}</Routes>;
 };

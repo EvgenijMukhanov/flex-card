@@ -37,10 +37,10 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
         setCurrentSource(source);
         if (
           parent &&
-          parent.hooks &&
-          typeof parent.hooks.onLoadConfiguration === "function"
+          parent.callbacks &&
+          typeof parent.callbacks.onLoadConfiguration === "function"
         ) {
-          parent.hooks.onLoadConfiguration(result);
+          parent.callbacks.onLoadConfiguration(result);
         }
       };
       load();
@@ -64,12 +64,7 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
   };
 
   const navigate = (data: NavigateMethodType) => {
-    if (
-      parent &&
-      parent.callbacks &&
-      parent.callbacks.navigate &&
-      typeof parent.callbacks.navigate === "function"
-    ) {
+    if (typeof parent?.callbacks?.navigate === "function") {
       parent.callbacks.navigate(data);
     }
   };

@@ -10,4 +10,5 @@ export type RootElementCallbackType = {
     breadcrumbs: number[];
   }) => void;
   navigate?: (data: NavigateMethodType) => void;
+  onLoadConfiguration?: (data: ConfigurationModel) => void;
 };

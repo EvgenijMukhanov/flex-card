@@ -1,8 +1,8 @@
-import { ConfigurationDataIsolateType } from "../sources/configurationData";
+import { ConfigurationDataType } from "../sources/configurationData";
 import { RoutingType } from "./routing";
 
 export type RoutingModelType = {
   nesting: number;
-  configuration: ConfigurationDataIsolateType;
+  configuration: ConfigurationDataType;
   routing: RoutingType;
 };
