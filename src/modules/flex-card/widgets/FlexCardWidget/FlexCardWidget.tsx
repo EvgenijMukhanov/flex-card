@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ElementChildrens, ElementWidget } from "..";
 import { ConfigurationModel } from "../../store/types/configurationModel";
-import { ElementType } from "../../store/types/element";
 import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
 import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 import { ElementParentType } from "../../store/types/common/elements/parent";
@@ -36,11 +35,13 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
         setConfiguration(result);
         setCurrentSource(source);
         if (
-          parent &&
-          parent.callbacks &&
-          typeof parent.callbacks.onLoadConfiguration === "function"
+          typeof parent?.callbacks?.root?.onLoadConfiguration === "function"
         ) {
-          parent.callbacks.onLoadConfiguration(result);
+          parent.callbacks.root.onLoadConfiguration({
+            nesting: parent.nesting,
+            configuration: result,
+            breadcrumbs: parent.breadcrumbs,
+          });
         }
       };
       load();
@@ -63,15 +64,14 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
     }
   };
 
-  const navigate = (data: NavigateMethodType) => {
-    if (typeof parent?.callbacks?.navigate === "function") {
-      parent.callbacks.navigate(data);
-    }
-  };
-
   const _parent: ElementParentType = {
     ...parent,
-    callbacks: { element: "root", joinConfiguration, navigate },
+    callbacks: {
+      ...parent.callbacks,
+      nesting: {
+        joinConfiguration,
+      },
+    },
   };
 
   return (

@@ -24,18 +24,23 @@ export const GetConfigurationWidget = ({
     ) {
       const load = async () => {
         const result = await loadConfiguration(request.source);
-        if (parent.callbacks?.joinConfiguration) {
-          parent.callbacks.joinConfiguration({
+        if (parent.callbacks?.nesting?.joinConfiguration) {
+          parent.callbacks.nesting.joinConfiguration({
             configuration: result,
             breadcrumbs: parent.breadcrumbs,
           });
         }
-        if (
-          parent.callbacks &&
-          typeof parent.callbacks.onLoadConfiguration === "function"
-        ) {
-          parent.callbacks.onLoadConfiguration(result);
-        }
+        // if (
+        //   parent.callbacks &&
+        //   typeof parent.callbacks.onLoadConfiguration === "function"
+        // ) {
+        //   parent.callbacks.onLoadConfiguration({
+        //     nesting: parent.nesting,
+        //     configuration: result,
+        //     breadcrumbs: parent.breadcrumbs,
+        //     data: request,
+        //   });
+        // }
       };
       load();
     }

@@ -7,11 +7,6 @@ type Props = {
 };
 
 export const FlexPage = ({ ext }: Props) => {
-  const navigate = (data: NavigateMethodType) => {
-    if (typeof ext?.callbacks?.navigate === "function") {
-      ext.callbacks.navigate(data);
-    }
-  };
   return (
     <FlexCardWidget
       source={ext.routing.configuration.source}
@@ -21,11 +16,7 @@ export const FlexPage = ({ ext }: Props) => {
           ext.routing.configuration.source.variant === "http"
             ? ext.routing.configuration.source.pathname
             : "",
-        callbacks: {
-          element: "root",
-          navigate,
-          onLoadConfiguration: ext.callbacks?.onLoadConfiguration,
-        },
+        callbacks: ext.callbacks,
         nesting: ext.routing.nesting,
       }}
     />

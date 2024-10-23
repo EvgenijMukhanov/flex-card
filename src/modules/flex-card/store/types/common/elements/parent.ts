@@ -1,4 +1,4 @@
-import { CallbacksType } from "../../elements/callbacks/callbacks";
+import { CallbacksType } from "../../callbacks/callbacks";
 
 export type ElementParentType = {
   callbacks?: CallbacksType;

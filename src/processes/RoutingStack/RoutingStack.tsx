@@ -32,10 +32,8 @@ export const RoutingStack = ({ routingModel, navigate }: PropsType) => {
               ext={{
                 routing,
                 callbacks: {
-                  element: "root",
-                  navigate,
-                  onLoadConfiguration: (data) => {
-                    console.log("onLoadConfiguration getRoutes", data);
+                  root: {
+                    navigate,
                   },
                 },
               }}
