@@ -1,5 +1,5 @@
 import { NavigateMethodType } from "../common/methods/variants/navigateMethod";
-import { ConfigurationDataType } from "../common/sources/configurationData";
+import { RequestSourceType } from "../common/sources/requestSource";
 import { ConfigurationModel } from "../configurationModel";
 
 export type CallbacksType = {
@@ -15,11 +15,12 @@ export type NestingLevelCallbackType = {
 };
 
 export type RootLevelCallbackType = {
-  onLoadConfiguration?: (data: {
-    configuration: ConfigurationModel;
-    data?: ConfigurationDataType;
-    breadcrumbs: number[];
-    nesting: number;
-  }) => void;
+  onLoadConfiguration?: (data: OnLoadConfigurationType) => void;
   navigate?: (data: NavigateMethodType) => void;
+};
+
+export type OnLoadConfigurationType = {
+  configuration: ConfigurationModel;
+  source: RequestSourceType;
+  nesting: number;
 };

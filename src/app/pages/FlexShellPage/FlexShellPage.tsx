@@ -3,6 +3,7 @@ import { NavigateMethodType } from "../../../modules/flex-card/store/types/commo
 import { RoutingModelType } from "../../../modules/flex-card/store/types/common/routing/routingModel";
 import { RoutingStack } from "../../../processes";
 import { useState } from "react";
+import { OnLoadConfigurationType } from "../../../modules/flex-card/store/types/callbacks/callbacks";
 
 type PropsType = {
   startConfigurationPathname: string;
@@ -12,6 +13,9 @@ export const FlexShellPage = ({ startConfigurationPathname }: PropsType) => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log("location", location);
+  const locationSplit = location.pathname.split("/");
+  console.log("locationSplit", locationSplit);
+
   const [routingModel, setRoutingModel] = useState<RoutingModelType[]>([
     {
       nesting: 0,
@@ -69,5 +73,15 @@ export const FlexShellPage = ({ startConfigurationPathname }: PropsType) => {
     navigate(pathname);
   };
 
-  return <RoutingStack routingModel={routingModel} navigate={handleNavigate} />;
+  const onLoadConfiguration = (data: OnLoadConfigurationType) => {
+    console.log("onLoadConfiguration", data);
+  };
+
+  return (
+    <RoutingStack
+      routingModel={routingModel}
+      navigate={handleNavigate}
+      onLoadConfiguration={onLoadConfiguration}
+    />
+  );
 };

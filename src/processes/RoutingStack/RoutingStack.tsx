@@ -2,13 +2,19 @@ import { Route, Routes } from "react-router-dom";
 import { FlexPage } from "../../modules/flex-card/pages";
 import { RoutingModelType } from "../../modules/flex-card/store/types/common/routing/routingModel";
 import { NavigateMethodType } from "../../modules/flex-card/store/types/common/methods/variants/navigateMethod";
+import { OnLoadConfigurationType } from "../../modules/flex-card/store/types/callbacks/callbacks";
 
 type PropsType = {
   routingModel: RoutingModelType[];
   navigate: (data: NavigateMethodType) => void;
+  onLoadConfiguration: (data: OnLoadConfigurationType) => void;
 };
 
-export const RoutingStack = ({ routingModel, navigate }: PropsType) => {
+export const RoutingStack = ({
+  routingModel,
+  navigate,
+  onLoadConfiguration,
+}: PropsType) => {
   const getRoutes = (routingModel: RoutingModelType[], nesting: number) => {
     if (routingModel.length > 0) {
       const routing = routingModel[0];
@@ -34,6 +40,7 @@ export const RoutingStack = ({ routingModel, navigate }: PropsType) => {
                 callbacks: {
                   root: {
                     navigate,
+                    onLoadConfiguration,
                   },
                 },
               }}

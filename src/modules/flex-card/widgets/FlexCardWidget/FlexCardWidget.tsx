@@ -5,7 +5,6 @@ import { loadConfiguration } from "../../store/helpers/configuration/loadConfigu
 import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 import { ElementParentType } from "../../store/types/common/elements/parent";
 import { joinConfigurationCallback } from "../../store/helpers/elements/callbacks/joinConfigurationCallback";
-import { NavigateMethodType } from "../../store/types/common/methods/variants/navigateMethod";
 import { checkEqualSources } from "../../store/helpers/common/sources/checkEqualSources";
 
 type Props = {
@@ -35,12 +34,13 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
         setConfiguration(result);
         setCurrentSource(source);
         if (
-          typeof parent?.callbacks?.root?.onLoadConfiguration === "function"
+          typeof parent?.callbacks?.root?.onLoadConfiguration === "function" &&
+          result
         ) {
           parent.callbacks.root.onLoadConfiguration({
             nesting: parent.nesting,
             configuration: result,
-            breadcrumbs: parent.breadcrumbs,
+            source,
           });
         }
       };
