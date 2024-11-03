@@ -18,6 +18,7 @@ export const mapDtoToLayoutSiderType = (
     typeof children.version === "number"
   ) {
     const element: LayoutSiderType = {
+      elementType: "grid",
       element: "layout.sider",
       version: children.version,
     };

@@ -2,6 +2,7 @@ import { AnyObject } from "../../../../../shared/types/common/AnyObject";
 import { ElementType } from "../element";
 
 export type LayoutSiderType = {
+  elementType: "grid";
   element: "layout.sider";
   version: number;
   childrens?: ElementType[];

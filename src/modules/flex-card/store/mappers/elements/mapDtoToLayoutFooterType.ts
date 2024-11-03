@@ -14,6 +14,7 @@ export const mapDtoToLayoutFooterType = (
     typeof children.version === "number"
   ) {
     const element: LayoutFooterType = {
+      elementType: "grid",
       element: "layout.footer",
       version: children.version,
     };

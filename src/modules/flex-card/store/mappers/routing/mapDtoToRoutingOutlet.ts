@@ -9,6 +9,7 @@ export const mapDtoToRoutingOutlet = (
     typeof children.version === "number"
   ) {
     return {
+      elementType: "routing",
       element: children.element,
       version: children.version,
     };

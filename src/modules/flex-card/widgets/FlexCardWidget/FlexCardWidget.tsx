@@ -4,7 +4,6 @@ import { ConfigurationModel } from "../../store/types/configurationModel";
 import { loadConfiguration } from "../../store/helpers/configuration/loadConfiguration";
 import { RequestSourceType } from "../../store/types/common/sources/requestSource";
 import { ElementParentType } from "../../store/types/common/elements/parent";
-import { joinConfigurationCallback } from "../../store/helpers/elements/callbacks/joinConfigurationCallback";
 import { checkEqualSources } from "../../store/helpers/common/sources/checkEqualSources";
 
 type Props = {
@@ -46,31 +45,12 @@ export const FlexCardWidget = ({ source, parent }: Props) => {
       };
       load();
     }
-  }, [source]);
-
-  const joinConfiguration = (data: {
-    configuration: ConfigurationModel;
-    breadcrumbs: number[];
-  }) => {
-    if (configuration && data.configuration && data.breadcrumbs) {
-      const config = joinConfigurationCallback({
-        rootConfiguration: configuration,
-        configuration: data.configuration,
-        breadcrumbs: data.breadcrumbs,
-      });
-      if (config) {
-        setConfiguration(config);
-      }
-    }
-  };
+  }, [source, currentSource, parent]);
 
   const _parent: ElementParentType = {
     ...parent,
     callbacks: {
       ...parent.callbacks,
-      nesting: {
-        joinConfiguration,
-      },
     },
   };
 

@@ -18,6 +18,7 @@ export const mapDtoToMenuType = (children: any): ElementType | undefined => {
     typeof children.version === "number"
   ) {
     const element: MenuType = {
+      elementType: "menu",
       element: "menu",
       version: children.version,
     };

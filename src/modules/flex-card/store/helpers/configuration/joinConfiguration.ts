@@ -1,8 +1,8 @@
-import { ConfigurationModel } from "../../../types/configurationModel";
-import { ElementType } from "../../../types/element";
-import { ElementsType } from "../../../types/elements";
+import { ConfigurationModel } from "../../types/configurationModel";
+import { ElementType } from "../../types/element";
+import { ElementsType } from "../../types/elements";
 
-export const joinConfigurationCallback = ({
+export const joinConfiguration = ({
   rootConfiguration,
   configuration,
   breadcrumbs,
@@ -84,13 +84,7 @@ const updateElement = ({
     const idx: number = breadcrumbs[0];
     if (
       element &&
-      (element.element === "layout" ||
-        element.element === "flex" ||
-        element.element === "layout.content" ||
-        element.element === "layout.footer" ||
-        element.element === "layout.header" ||
-        element.element === "layout.sider" ||
-        element.element === "typography")
+      (element.elementType === "grid" || element.elementType === "text")
     ) {
       if (
         element.childrens &&

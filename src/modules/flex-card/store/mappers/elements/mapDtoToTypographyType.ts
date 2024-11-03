@@ -18,6 +18,7 @@ export const mapDtoToTypographyType = (
     typeof children.version === "number"
   ) {
     const element: TypographyType = {
+      elementType: "text",
       element: "typography",
       version: children.version,
     };

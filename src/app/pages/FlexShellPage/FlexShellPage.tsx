@@ -77,9 +77,15 @@ export const FlexShellPage = ({ startConfigurationPathname }: PropsType) => {
     console.log("onLoadConfiguration", data);
   };
 
+  const getRoutingModel = (routingModel: RoutingModelType[]) => {
+    return routingModel;
+  };
+
+  console.log("routingModel", routingModel);
+
   return (
     <RoutingStack
-      routingModel={routingModel}
+      routingModel={getRoutingModel(routingModel)}
       navigate={handleNavigate}
       onLoadConfiguration={onLoadConfiguration}
     />

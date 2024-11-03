@@ -14,6 +14,7 @@ export const mapDtoToLayoutHeaderType = (
     typeof children.version === "number"
   ) {
     const element: LayoutHeaderType = {
+      elementType: "grid",
       element: "layout.header",
       version: children.version,
     };

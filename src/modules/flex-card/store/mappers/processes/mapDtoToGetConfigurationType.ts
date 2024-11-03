@@ -11,6 +11,7 @@ export const mapDtoToGetConfigurationType = (
     typeof children.version === "number"
   ) {
     return {
+      elementType: "configuration",
       element: "get.configuration",
       version: children.version,
       data:

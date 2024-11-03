@@ -12,6 +12,7 @@ export const mapDtoToLayoutType = (children: any): ElementType | undefined => {
     typeof children.version === "number"
   ) {
     const element: LayoutType = {
+      elementType: "grid",
       element: "layout",
       version: children.version,
     };

@@ -2,6 +2,7 @@ import { AnyObject } from "../../../../../shared/types/common/AnyObject";
 import { ElementType } from "../element";
 
 export type FlexType = {
+  elementType: "grid";
   element: "flex";
   version: number;
   childrens?: ElementType[];

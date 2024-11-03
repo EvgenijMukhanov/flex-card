@@ -13,6 +13,7 @@ export const mapDtoToFlexType = (children: any): ElementType | undefined => {
     typeof children.version === "number"
   ) {
     const element: FlexType = {
+      elementType: "grid",
       element: "flex",
       version: children.version,
     };

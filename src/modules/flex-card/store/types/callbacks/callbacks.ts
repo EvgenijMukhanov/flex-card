@@ -7,12 +7,7 @@ export type CallbacksType = {
   nesting?: NestingLevelCallbackType;
 };
 
-export type NestingLevelCallbackType = {
-  joinConfiguration?: (data: {
-    configuration: ConfigurationModel;
-    breadcrumbs: number[];
-  }) => void;
-};
+export type NestingLevelCallbackType = {};
 
 export type RootLevelCallbackType = {
   onLoadConfiguration?: (data: OnLoadConfigurationType) => void;

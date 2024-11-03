@@ -2,6 +2,7 @@ import { AnyObject } from "../../../../../shared/types/common/AnyObject";
 import { MenuHandlersType } from "./handlers/menuHandlers";
 
 export type MenuType = {
+  elementType: "menu";
   element: "menu";
   version: number;
   props?: MenuPropsType;
