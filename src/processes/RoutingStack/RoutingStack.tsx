@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { FlexPage } from "../../modules/flex-card/pages";
-import { RoutingModelType } from "../../modules/flex-card/store/types/common/routing/routingModel";
-import { NavigateMethodType } from "../../modules/flex-card/store/types/common/methods/variants/navigateMethod";
-import { OnLoadConfigurationType } from "../../modules/flex-card/store/types/callbacks/callbacks";
+import { FlexPage } from "../../modules/sdk-flex-card/pages";
+import { RoutingModelType } from "../../modules/sdk-flex-card/store/types/common/routing/routingModel";
+import { NavigateMethodType } from "../../modules/sdk-flex-card/store/types/common/methods/variants/navigateMethod";
+import { OnLoadConfigurationType } from "../../modules/sdk-flex-card/store/types/callbacks/callbacks";
 
 type PropsType = {
   routingModel: RoutingModelType[];
@@ -19,15 +19,18 @@ export const RoutingStack = ({
     if (routingModel.length > 0) {
       const routing = routingModel[0];
       let pathname = "";
-      routing.routing?.routes.forEach((item) => {
-        if (item.pathname) {
-          if (pathname) {
-            pathname = `${pathname}/${item.pathname.join("/")}`;
-          } else {
-            pathname = `${item.pathname.join("/")}`;
+      if (routing.loading) {
+        routing.routing?.routes.forEach((item) => {
+          if (item.pathname) {
+            if (pathname) {
+              pathname = `${pathname}/${item.pathname.join("/")}`;
+            } else {
+              pathname = `${item.pathname.join("/")}`;
+            }
           }
-        }
-      });
+        });
+      }
+      pathname = `${pathname}/*`;
       return (
         <Route
           key={nesting}

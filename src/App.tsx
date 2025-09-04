@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import ru from "antd/es/locale/ru_RU";
 import { ConfigProvider } from "./shared/config";
 import { LoadProcess } from "./processes";
-import { FlexShellPage } from "./app/pages";
+import { FlexShellPage } from "./modules/sdk-flex-card/ext";
 
 function App() {
   return (
@@ -24,14 +24,24 @@ function App() {
             },
           }}
         >
-          <Routes>
+          <FlexShellPage
+            configuration={{
+              baseUrl: "meta",
+              pathname: "configuration",
+            }}
+            main={{
+              baseUrl: "pages",
+              pathname: "main",
+            }}
+          />
+          {/* <Routes>
             <Route
               path="/*"
               element={
                 <FlexShellPage startConfigurationPathname="pages/main" />
               }
             />
-          </Routes>
+          </Routes> */}
         </ConfigProvider>
       </LoadProcess>
     </BrowserRouter>

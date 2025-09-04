@@ -1,0 +1,22 @@
+{
+  "main": {
+    "configuration": "pages/main"
+  },
+  "pages": [
+    {
+      "name": "home-page",
+      "url": "home",
+      "configuration": "pages/home"
+    },
+    {
+      "name": "admin-page",
+      "url": "admin",
+      "configuration": ""
+    },
+    {
+      "name": "permissions-page",
+      "url": "admin/permissions",
+      "configuration": "pages/permissions"
+    }
+  ]
+}

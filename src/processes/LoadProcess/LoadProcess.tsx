@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { init as initFlexCard } from "../../modules/flex-card";
+import { init as initFlexCard } from "../../modules/sdk-flex-card";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
